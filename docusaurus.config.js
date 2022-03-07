@@ -52,9 +52,26 @@ module.exports = {
       },
       items: [
         {
-          to: 'astro',
+          type: 'dropdown',
           label: 'Astro',
+          to: '/astro',
+          activeBaseRegex: 'astro',
           position: 'left',
+          activeClassName: 'navbar__link--active',
+          items: [
+            {
+              label: 'Cloud',
+              to: '/astro',
+            },
+            {
+              label: 'CLI',
+              to: '/astro/install-cli',
+            },
+            {
+              label: 'Project',
+              to: '/astro/create-project',
+            },
+          ],
         },
         {
           type: 'dropdown',
@@ -89,6 +106,11 @@ module.exports = {
               to: '/software/0.16/overview'
             },
           ],
+        },
+        {
+          label: 'Tutorials',
+          to: 'astro/overview',
+          position: 'left',
         },
       ],
     },
