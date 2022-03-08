@@ -18,35 +18,33 @@ module.exports = {
       type: 'category',
       label: 'Get Started',
       items: [
-        'install-aws',
         'install-cli',
+        'create-project',
       ],
     },
     {
       type: 'category',
       label: 'Write DAGs',
       items: [
-        'airflow-api',
+        'deferrable-operators',
         'airflow-alerts',
         'kubernetespodoperator',
-        'deferrable-operators',
       ],
     },
     {
       type: 'category',
       label: 'Develop Your Project',
       items: [
-        'create-project',
         'develop-project',
-        'deploy-code',
         'test-and-troubleshoot-locally',
+        'airflow-api',
       ],
     },
     {
       type: 'category',
       label: 'Configure Deployments',
       items: [
-        'configure-deployment',
+        'create-deployment',
         'api-keys',
         'environment-variables',
         'secrets-backend',
@@ -72,39 +70,52 @@ module.exports = {
       type: 'category',
       label: 'Administration',
       items: [
-        'create-cluster',
-        'configure-idp',
+        {
+          type: 'category',
+          label: 'Set Up Astro',
+          items: [
+            'install-aws',
+            'create-cluster',
+            'modify-cluster',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'User Access',
+          items: [
+            'add-user',
+            'user-permissions',
+            'configure-idp',
+          ],
+        },
         'manage-workspaces',
-        'add-user',
-        'user-permissions',
-        'modify-cluster',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Release Notes',
+      items: [
+        'release-notes',
+        'runtime-release-notes',
       ],
     },
     {
       type: 'category',
       label: 'Reference',
       items: [
-        {
-          type: 'category',
-          label: 'Release Notes',
-          items: [
-            'release-notes',
-            'runtime-release-notes',
-          ],
-        },
         'known-limitations',
         'resource-reference-aws',
         'platform-variables',
         {
           type: 'category',
           label: 'Security',
-          link: {type: 'doc', id: 'security'},
+          link: { type: 'doc', id: 'security' },
           items: [
             'shared-responsibility-model',
             'resilience',
             'disaster-recovery',
             'data-protection',
-            'secrets-management',  ],
+            'secrets-management',],
         },
       ],
     },
@@ -126,7 +137,7 @@ module.exports = {
       collapsed: false,
       items: [
         'cli-reference/astrocloud-auth-login',
-        'cli-reference/astrocloud-auth-logout', ],
+        'cli-reference/astrocloud-auth-logout',],
 
     },
     {
@@ -148,7 +159,7 @@ module.exports = {
         'cli-reference/astrocloud-deployment-delete',
         'cli-reference/astrocloud-deployment-list',
         'cli-reference/astrocloud-deployment-logs',
-        'cli-reference/astrocloud-deployment-update', ],
+        'cli-reference/astrocloud-deployment-update',],
 
     },
     {
@@ -165,7 +176,7 @@ module.exports = {
         'cli-reference/astrocloud-dev-run',
         'cli-reference/astrocloud-dev-start',
         'cli-reference/astrocloud-dev-stop',
-        'cli-reference/astrocloud-dev-restart', ],
+        'cli-reference/astrocloud-dev-restart',],
 
     },
     {
@@ -179,14 +190,14 @@ module.exports = {
       collapsed: false,
       items: [
         'cli-reference/astrocloud-workspace-list',
-        'cli-reference/astrocloud-workspace-switch',          ],
-        },
-      ],
-      project: [
-        {
-          type: 'doc',
-          label: 'SDK documentation',
-          id: 'placeholder'
-        },
-      ],
+        'cli-reference/astrocloud-workspace-switch',],
+    },
+  ],
+  project: [
+    {
+      type: 'doc',
+      label: 'SDK documentation',
+      id: 'placeholder'
+    },
+  ],
 };

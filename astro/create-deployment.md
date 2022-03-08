@@ -1,7 +1,7 @@
 ---
-sidebar_label: 'Configure a Deployment'
+sidebar_label: 'Create a Deployment'
 title: 'Configure a Deployment'
-id: configure-deployment
+id: create-deployment
 description: Learn how to create and configure an Astro Deployment.
 ---
 
