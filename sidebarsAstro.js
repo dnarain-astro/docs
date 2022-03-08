@@ -288,27 +288,9 @@ module.exports = {
       ],
       project: [
         {
-          type: 'category',
-          label: 'Develop',
-          items: [
-            'create-project',
-            'develop-project',
-            'deploy-code',
-            'airflow-api',
-            'airflow-alerts',
-            'kubernetespodoperator',
-            'deferrable-operators',
-            'test-and-troubleshoot-locally',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Astronomer Runtime',
-          items: [
-            'upgrade-runtime',
-            'runtime-version-lifecycle-policy',
-            'runtime-release-notes',
-          ],
+          type: 'doc',
+          label: 'SDK documentation',
+          id: 'SDK'
         },
       ],
 };
