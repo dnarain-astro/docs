@@ -142,8 +142,8 @@ module.exports = {
           label: 'auth',
           items: [
             'cli-reference/astrocloud-auth-login',
-            'cli-reference/astrocloud-auth-logout',],
-
+            'cli-reference/astrocloud-auth-logout',
+          ],
         },
         {
           type: 'doc',
@@ -163,8 +163,8 @@ module.exports = {
             'cli-reference/astrocloud-deployment-delete',
             'cli-reference/astrocloud-deployment-list',
             'cli-reference/astrocloud-deployment-logs',
-            'cli-reference/astrocloud-deployment-update',],
-
+            'cli-reference/astrocloud-deployment-update',
+          ],
         },
         {
           type: 'category',
@@ -179,8 +179,8 @@ module.exports = {
             'cli-reference/astrocloud-dev-run',
             'cli-reference/astrocloud-dev-start',
             'cli-reference/astrocloud-dev-stop',
-            'cli-reference/astrocloud-dev-restart',],
-
+            'cli-reference/astrocloud-dev-restart',
+          ],
         },
         {
           type: 'doc',
@@ -195,11 +195,13 @@ module.exports = {
             'cli-reference/astrocloud-workspace-switch',],
         },
       ],
-      project: [
-        {
-          type: 'doc',
-          label: 'SDK documentation',
-          id: 'placeholder'
-        },
-      ],
-    };
+    },
+    projects: [
+      {
+        type: 'doc',
+        label: 'SDK documentation',
+        id: 'placeholder'
+      },
+    ]
+  ],
+};
