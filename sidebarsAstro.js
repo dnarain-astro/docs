@@ -290,7 +290,7 @@ module.exports = {
         {
           type: 'doc',
           label: 'SDK documentation',
-          id: 'SDK'
+          id: 'placeholder'
         },
       ],
 };
