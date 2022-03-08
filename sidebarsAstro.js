@@ -33,7 +33,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Develop Your Project',
+      label: 'Build Your Project',
       items: [
         'develop-project',
         'test-and-troubleshoot-locally',
