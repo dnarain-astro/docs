@@ -1,6 +1,6 @@
 ---
 title: 'Make Requests to the Airflow REST API'
-sidebar_label: 'Airflow REST API'
+sidebar_label: 'Make Requests to Airflow API'
 id: airflow-api
 description: Make requests to the Airflow REST API with Astro Deployment API Keys.
 ---

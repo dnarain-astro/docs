@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Airflow Alerts'
+sidebar_label: 'Set Airflow Alerts'
 title: 'Configure Airflow Alerts on Astro'
 id: airflow-alerts
 description: Set up email alerts for Airflow task successes and failures.

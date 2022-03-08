@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'KubernetesPodOperator'
+sidebar_label: 'Configure the KubernetesPodOperator'
 title: "Run the KubernetesPodOperator on Astro"
 id: kubernetespodoperator
 ---

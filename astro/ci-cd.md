@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'CI/CD'
+sidebar_label: 'Deploy via CI/CD'
 title: 'Automate Code Deploys with CI/CD'
 id: ci-cd
 description: Create a CI/CD pipeline that triggers a deploy to Astro based on changes to your Airflow DAGs.

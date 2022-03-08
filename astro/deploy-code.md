@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Deploy Code'
+sidebar_label: 'Deploy to Astro'
 title: 'Deploy Code to Astro'
 id: deploy-code
 description: Deploy Airflow DAGs to Astro.

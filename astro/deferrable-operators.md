@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Deferrable Operators'
-title: 'Deferrable Operators'
+title: 'Use Deferrable Operators'
 id: deferrable-operators
 description: Run Airflow's deferrable operators on Astro for improved performance and cost savings.
 ---

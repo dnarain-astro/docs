@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Deployment Metrics'
-title: 'Deployment Metrics'
+title: 'View Deployment Metrics'
 id: deployment-metrics
 description: Monitor Deployment performance, health, and total task volume in the Cloud UI.
 ---

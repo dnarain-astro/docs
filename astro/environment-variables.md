@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Environment Variables'
+sidebar_label: 'Set Environment Variables'
 title: 'Set Environment Variables on Astro'
 id: environment-variables
 description: Set environment variables on Astro to specify Airflow configurations and custom logic.
