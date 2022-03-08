@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev pytest"
+sidebar_label: "pytest"
 title: "astrocloud dev pytest"
 id: astrocloud-dev-pytest
 description: Reference documentation for astrocloud dev pytest.

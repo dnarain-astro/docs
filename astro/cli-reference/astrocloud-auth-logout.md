@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'astrocloud auth logout'
+sidebar_label: 'logout'
 title: 'astrocloud auth logout'
 id: astrocloud-auth-logout
 description: Reference documentation for astrocloud auth logout.

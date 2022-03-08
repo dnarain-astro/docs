@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud deployment create"
+sidebar_label: "create"
 title: "astrocloud deployment create"
 id: astrocloud-deployment-create
 description: Reference documentation for astrocloud deployment create.

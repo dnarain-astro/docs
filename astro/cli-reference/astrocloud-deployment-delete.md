@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud deployment delete"
+sidebar_label: "delete"
 title: "astrocloud deployment delete"
 id: astrocloud-deployment-delete
 description: Reference documentation for astrocloud deployment delete.

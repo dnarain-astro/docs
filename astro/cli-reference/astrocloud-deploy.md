@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud deploy"
+sidebar_label: "deploy"
 title: "astrocloud deploy"
 id: astrocloud-deploy
 description: Reference documentation for astrocloud deploy.

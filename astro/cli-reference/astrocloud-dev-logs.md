@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev logs"
+sidebar_label: "logs"
 title: "astrocloud dev logs"
 id: astrocloud-dev-logs
 description: Reference documentation for astrocloud dev logs.

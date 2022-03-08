@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud version"
+sidebar_label: "version"
 title: "astrocloud version"
 id: astrocloud-version
 description: Reference documentation for astrocloud version.

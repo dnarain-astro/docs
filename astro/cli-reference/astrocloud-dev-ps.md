@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev ps"
+sidebar_label: "ps"
 title: "astrocloud dev ps"
 id: astrocloud-dev-ps
 description: Reference documentation for astrocloud dev ps.

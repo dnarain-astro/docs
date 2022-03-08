@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud deployment update"
+sidebar_label: "update"
 title: "astrocloud deployment update"
 id: astrocloud-deployment-update
 description: Reference documentation for astrocloud deployment update.

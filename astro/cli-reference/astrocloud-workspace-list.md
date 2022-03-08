@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud workspace list"
+sidebar_label: "list"
 title: "astrocloud workspace list"
 id: astrocloud-workspace-list
 description: Reference documentation for astrocloud workspace list.

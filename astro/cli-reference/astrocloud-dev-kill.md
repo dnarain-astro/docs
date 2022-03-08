@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev kill"
+sidebar_label: "kill"
 title: "astrocloud dev kill"
 id: astrocloud-dev-kill
 description: Reference documentation for astrocloud dev kill.

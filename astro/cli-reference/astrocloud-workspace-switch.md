@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud workspace switch"
+sidebar_label: "switch"
 title: "astrocloud workspace switch"
 id: astrocloud-workspace-switch
 description: Reference documentation for astrocloud workspace switch.

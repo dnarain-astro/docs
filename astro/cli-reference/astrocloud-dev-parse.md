@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev parse"
+sidebar_label: "parse"
 title: "astrocloud dev parse"
 id: astrocloud-dev-parse
 description: Reference documentation for astrocloud dev parse.

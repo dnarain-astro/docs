@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud completion"
+sidebar_label: "completion"
 title: "astrocloud completion"
 id: astrocloud-completion
 description: Reference documentation for astrocloud completion.

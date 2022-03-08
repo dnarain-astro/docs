@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'astrocloud auth login'
+sidebar_label: 'login'
 title: 'astrocloud auth login'
 id: astrocloud-auth-login
 description: Reference documentation for astrocloud auth login.

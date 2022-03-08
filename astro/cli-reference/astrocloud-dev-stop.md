@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev stop"
+sidebar_label: "stop"
 title: "astrocloud dev stop"
 id: astrocloud-dev-stop
 description: Reference documentation for astrocloud dev stop.

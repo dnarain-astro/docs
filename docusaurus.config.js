@@ -68,8 +68,8 @@ module.exports = {
               to: '/astro/install-cli',
             },
             {
-              label: 'Project',
-              to: '/astro/create-project',
+              label: 'Projects',
+              to: '/astro/placeholder',
             },
           ],
         },

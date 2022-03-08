@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev restart"
+sidebar_label: "restart"
 title: "astrocloud dev restart"
 id: astrocloud-dev-restart
 description: Reference documentation for astrocloud dev restart.

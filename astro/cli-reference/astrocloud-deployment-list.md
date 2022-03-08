@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud deployment list"
+sidebar_label: "list"
 title: "astrocloud deployment list"
 id: astrocloud-deployment-list
 description: Reference documentation for astrocloud deployment list.

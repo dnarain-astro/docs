@@ -1,5 +1,5 @@
 ---
-sidebar_label: "astrocloud dev run"
+sidebar_label: "run"
 title: "astrocloud dev run"
 id: astrocloud-dev-run
 description: Reference documentation for astrocloud dev run.
