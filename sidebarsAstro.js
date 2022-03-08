@@ -132,72 +132,74 @@ module.exports = {
       id: 'cli-release-notes',
     },
     {
-      type: 'category',
-      label: 'auth',
+      type: 'doc',
+      label: 'Command Reference',
+      id: 'cli-reference',
       collapsed: false,
       items: [
-        'cli-reference/astrocloud-auth-login',
-        'cli-reference/astrocloud-auth-logout',],
+        {
+          type: 'category',
+          label: 'auth',
+          items: [
+            'cli-reference/astrocloud-auth-login',
+            'cli-reference/astrocloud-auth-logout',],
 
-    },
-    {
-      type: 'doc',
-      label: 'completion',
-      id: 'cli-reference/astrocloud-completion',
-    },
-    {
-      type: 'doc',
-      label: 'deploy',
-      id: 'cli-reference/astrocloud-deploy',
-    },
-    {
-      type: 'category',
-      label: 'deployment',
-      collapsed: false,
-      items: [
-        'cli-reference/astrocloud-deployment-create',
-        'cli-reference/astrocloud-deployment-delete',
-        'cli-reference/astrocloud-deployment-list',
-        'cli-reference/astrocloud-deployment-logs',
-        'cli-reference/astrocloud-deployment-update',],
+        },
+        {
+          type: 'doc',
+          label: 'completion',
+          id: 'cli-reference/astrocloud-completion',
+        },
+        {
+          type: 'doc',
+          label: 'deploy',
+          id: 'cli-reference/astrocloud-deploy',
+        },
+        {
+          type: 'category',
+          label: 'deployment',
+          items: [
+            'cli-reference/astrocloud-deployment-create',
+            'cli-reference/astrocloud-deployment-delete',
+            'cli-reference/astrocloud-deployment-list',
+            'cli-reference/astrocloud-deployment-logs',
+            'cli-reference/astrocloud-deployment-update',],
 
-    },
-    {
-      type: 'category',
-      label: 'dev',
-      collapsed: false,
-      items: [
-        'cli-reference/astrocloud-dev-init',
-        'cli-reference/astrocloud-dev-kill',
-        'cli-reference/astrocloud-dev-logs',
-        'cli-reference/astrocloud-dev-parse',
-        'cli-reference/astrocloud-dev-ps',
-        'cli-reference/astrocloud-dev-pytest',
-        'cli-reference/astrocloud-dev-run',
-        'cli-reference/astrocloud-dev-start',
-        'cli-reference/astrocloud-dev-stop',
-        'cli-reference/astrocloud-dev-restart',],
+        },
+        {
+          type: 'category',
+          label: 'dev',
+          items: [
+            'cli-reference/astrocloud-dev-init',
+            'cli-reference/astrocloud-dev-kill',
+            'cli-reference/astrocloud-dev-logs',
+            'cli-reference/astrocloud-dev-parse',
+            'cli-reference/astrocloud-dev-ps',
+            'cli-reference/astrocloud-dev-pytest',
+            'cli-reference/astrocloud-dev-run',
+            'cli-reference/astrocloud-dev-start',
+            'cli-reference/astrocloud-dev-stop',
+            'cli-reference/astrocloud-dev-restart',],
 
-    },
-    {
-      type: 'doc',
-      label: 'version',
-      id: 'cli-reference/astrocloud-version',
-    },
-    {
-      type: 'category',
-      label: 'workspace',
-      collapsed: false,
-      items: [
-        'cli-reference/astrocloud-workspace-list',
-        'cli-reference/astrocloud-workspace-switch',],
-    },
-  ],
-  project: [
-    {
-      type: 'doc',
-      label: 'SDK documentation',
-      id: 'placeholder'
-    },
-  ],
-};
+        },
+        {
+          type: 'doc',
+          label: 'version',
+          id: 'cli-reference/astrocloud-version',
+        },
+        {
+          type: 'category',
+          label: 'workspace',
+          items: [
+            'cli-reference/astrocloud-workspace-list',
+            'cli-reference/astrocloud-workspace-switch',],
+        },
+      ],
+      project: [
+        {
+          type: 'doc',
+          label: 'SDK documentation',
+          id: 'placeholder'
+        },
+      ],
+    };
