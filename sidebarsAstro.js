@@ -192,6 +192,7 @@ module.exports = {
             'cli-reference/astrocloud-version',
           ],
         },
+
       ],
     },
     projects: [
