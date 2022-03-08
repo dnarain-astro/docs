@@ -139,36 +139,15 @@ module.exports = {
       items: [
         {
           type: 'category',
-          label: 'auth',
+          label: 'AUTH',
           items: [
             'cli-reference/astrocloud-auth-login',
             'cli-reference/astrocloud-auth-logout',
           ],
         },
         {
-          type: 'doc',
-          label: 'completion',
-          id: 'cli-reference/astrocloud-completion',
-        },
-        {
-          type: 'doc',
-          label: 'deploy',
-          id: 'cli-reference/astrocloud-deploy',
-        },
-        {
           type: 'category',
-          label: 'deployment',
-          items: [
-            'cli-reference/astrocloud-deployment-create',
-            'cli-reference/astrocloud-deployment-delete',
-            'cli-reference/astrocloud-deployment-list',
-            'cli-reference/astrocloud-deployment-logs',
-            'cli-reference/astrocloud-deployment-update',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'dev',
+          label: 'DEV',
           items: [
             'cli-reference/astrocloud-dev-init',
             'cli-reference/astrocloud-dev-kill',
@@ -183,16 +162,35 @@ module.exports = {
           ],
         },
         {
-          type: 'doc',
-          label: 'version',
-          id: 'cli-reference/astrocloud-version',
-        },
-        {
           type: 'category',
-          label: 'workspace',
+          label: 'WORKSPACE',
           items: [
             'cli-reference/astrocloud-workspace-list',
             'cli-reference/astrocloud-workspace-switch',],
+        },
+        {
+          type: 'category',
+          label: 'DEPLOYMENT',
+          items: [
+            'cli-reference/astrocloud-deployment-create',
+            'cli-reference/astrocloud-deployment-delete',
+            'cli-reference/astrocloud-deployment-list',
+            'cli-reference/astrocloud-deployment-logs',
+            'cli-reference/astrocloud-deployment-update',
+          ],
+        },
+        {
+          type: 'doc',
+          label: 'DEPLOY',
+          id: 'cli-reference/astrocloud-deploy',
+        },
+        {
+          type: 'category',
+          label: 'OTHER',
+          items: [
+            'cli-reference/astrocloud-completion',
+            'cli-reference/astrocloud-version',
+          ],
         },
       ],
     },
