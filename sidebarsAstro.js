@@ -43,7 +43,7 @@ module.exports = {
       type: 'category',
       label: 'Manage Deployments',
       items: [
-        'connfigure-deployment',
+        'configure-deployment',
         'api-keys',
         'environment-variables',
         'secrets-backend',
