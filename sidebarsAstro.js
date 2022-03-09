@@ -24,27 +24,26 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Write DAGs',
-      items: [
-        'deferrable-operators',
-        'airflow-alerts',
-        'kubernetespodoperator',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Build Your Project',
+      label: 'Develop',
       items: [
         'develop-project',
-        'test-and-troubleshoot-locally',
+        {
+          type: 'category',
+          label: 'Write DAGs',
+          items: [
+            'deferrable-operators',
+            'kubernetespodoperator',
+          ],
+        },
         'airflow-api',
+        'test-and-troubleshoot-locally',
       ],
     },
     {
       type: 'category',
-      label: 'Configure Deployments',
+      label: 'Manage Deployments',
       items: [
-        'create-deployment',
+        'connfigure-deployment',
         'api-keys',
         'environment-variables',
         'secrets-backend',
@@ -64,31 +63,32 @@ module.exports = {
       items: [
         'deployment-metrics',
         'scheduler-logs',
+        'airflow-alerts',
       ],
     },
     {
       type: 'category',
       label: 'Administration',
       items: [
-        {
-          type: 'category',
-          label: 'Set Up Astro',
-          items: [
             'install-aws',
-            'create-cluster',
-            'modify-cluster',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'User Access',
-          items: [
-            'add-user',
-            'user-permissions',
-            'configure-idp',
-          ],
-        },
-        'manage-workspaces',
+            'manage-workspaces',
+            {
+              type: 'category',
+              label: 'User Access',
+              items: [
+                'add-user',
+                'user-permissions',
+                'configure-idp',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Manage Clusters',
+              items: [
+                'create-cluster',
+                'modify-cluster',
+              ],
+            },
       ],
     },
     {
@@ -127,11 +127,6 @@ module.exports = {
       id: 'install-cli'
     },
     {
-      type: 'doc',
-      label: 'Release Notes',
-      id: 'cli-release-notes',
-    },
-    {
       type: 'category',
       label: 'Command Reference',
       link: { type: 'doc', id: 'cli-reference' },
@@ -139,15 +134,36 @@ module.exports = {
       items: [
         {
           type: 'category',
-          label: 'AUTH',
+          label: 'auth',
           items: [
             'cli-reference/astrocloud-auth-login',
             'cli-reference/astrocloud-auth-logout',
           ],
         },
         {
+          type: 'doc',
+          label: 'completion',
+          id: 'cli-reference/astrocloud-completion',
+        },
+        {
+          type: 'doc',
+          label: 'deploy',
+          id: 'cli-reference/astrocloud-deploy',
+        },
+        {
           type: 'category',
-          label: 'DEV',
+          label: 'deployment',
+          items: [
+            'cli-reference/astrocloud-deployment-create',
+            'cli-reference/astrocloud-deployment-delete',
+            'cli-reference/astrocloud-deployment-list',
+            'cli-reference/astrocloud-deployment-logs',
+            'cli-reference/astrocloud-deployment-update',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'dev',
           items: [
             'cli-reference/astrocloud-dev-init',
             'cli-reference/astrocloud-dev-kill',
@@ -163,36 +179,22 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'WORKSPACE',
+          label: 'workspace',
           items: [
             'cli-reference/astrocloud-workspace-list',
             'cli-reference/astrocloud-workspace-switch',],
         },
         {
-          type: 'category',
-          label: 'DEPLOYMENT',
-          items: [
-            'cli-reference/astrocloud-deployment-create',
-            'cli-reference/astrocloud-deployment-delete',
-            'cli-reference/astrocloud-deployment-list',
-            'cli-reference/astrocloud-deployment-logs',
-            'cli-reference/astrocloud-deployment-update',
-          ],
-        },
-        {
           type: 'doc',
-          label: 'DEPLOY',
-          id: 'cli-reference/astrocloud-deploy',
-        },
-        {
-          type: 'category',
-          label: 'OTHER',
-          items: [
-            'cli-reference/astrocloud-completion',
-            'cli-reference/astrocloud-version',
-          ],
+          label: 'version',
+          id: 'cli-reference/astrocloud-version',
         },
       ],
+    },
+    {
+      type: 'doc',
+      label: 'Release Notes',
+      id: 'cli-release-notes',
     },
   ],
     project: [

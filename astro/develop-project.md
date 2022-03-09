@@ -1,6 +1,6 @@
 ---
-sidebar_label: 'Develop a Project'
-title: 'Develop Your Astro project'
+sidebar_label: 'Build a Project'
+title: 'Build Your Astro project'
 id: develop-project
 description: Learn how to add Airflow dependencies and customize an Astro project to fit your use case.
 ---
