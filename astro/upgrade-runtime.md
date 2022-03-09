@@ -1,6 +1,6 @@
 ---
-sidebar_label: 'Upgrade Runtime'
-title: 'Upgrade Astro Runtime'
+sidebar_label: 'Set Runtime Version'
+title: 'Set Astro Runtime Version'
 id: upgrade-runtime
 description: Upgrade your Deployment's version of Astro Runtime.
 ---
