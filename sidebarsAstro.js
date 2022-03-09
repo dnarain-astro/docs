@@ -35,6 +35,7 @@ module.exports = {
             'kubernetespodoperator',
           ],
         },
+        'upgrade-runtime',
         'airflow-api',
         'test-and-troubleshoot-locally',
       ],
@@ -59,7 +60,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Monitor',
+      label: 'Observability',
       items: [
         'deployment-metrics',
         'scheduler-logs',
