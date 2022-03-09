@@ -33,6 +33,8 @@ module.exports = {
           items: [
             'deferrable-operators',
             'kubernetespodoperator',
+            'astrosdk',
+            'pythonsdk',
           ],
         },
         'upgrade-runtime',
