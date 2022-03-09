@@ -132,9 +132,9 @@ module.exports = {
       id: 'cli-release-notes',
     },
     {
-      type: 'doc',
+      type: 'category',
       label: 'Command Reference',
-      id: 'cli-reference',
+      link: { type: 'doc', id: 'cli-reference' },
       collapsed: false,
       items: [
         {
@@ -192,15 +192,14 @@ module.exports = {
             'cli-reference/astrocloud-version',
           ],
         },
-
       ],
     },
-    projects: [
+  ],
+    project: [
       {
         type: 'doc',
         label: 'SDK documentation',
-        id: 'placeholder'
+        id: 'placeholder',
       },
-    ]
-  ],
+    ],
 };
