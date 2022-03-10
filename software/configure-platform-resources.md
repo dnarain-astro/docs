@@ -70,18 +70,18 @@ To ensure plenty of room to run Airflow environments and hefty jobs, these estim
 
 | Component         | Item                                                       | Hourly Cost (Annual Upfront Pricing) |
 | ----------------- | ---------------------------------------------------------- | ------------------------------------ |
-| Compute           | 6 m5.xlarge or 3 m5.2xlarge (24 vCPU 96 GiB)               | \$0.68                               |
-| EKS Control Plane | \$0.20 _ 24 _ 365                                          | \$0.20                               |
-| Database          | db.t2.medium Postgres, Multi-AZ at \$0.29/hr \*24hr \* 365 | \$0.05                               |
-| Total             |                                                            | \$0.93                               |
+| Compute           | 6 m5.xlarge or 3 m5.2xlarge (24 vCPU 96 GiB)               | $0.68                               |
+| EKS Control Plane | \$0.20 _ 24 _ 365                                          | $0.20                               |
+| Database          | db.t2.medium Postgres, Multi-AZ at \$0.29/hr \*24hr \* 365 | $0.05                               |
+| Total             |                                                            | $0.93                               |
 
 #### GCP
 
 | Component | Item                                                           | Hourly Cost (Annual Upfront Pricing) |
 | --------- | -------------------------------------------------------------- | ------------------------------------ |
-| Compute   | 6 n2-standard-8 at \$0.311/hr                                  | \$0.31                               |
-| Database  | Cloud SQL for PostgresSQL with 2 cores and 14.4GB at \$0.29/hr | \$0.29                               |
-| Total     |                                                                | \$0.60                               |
+| Compute   | 6 n2-standard-8 at \$0.311/hr                                  | $0.31                               |
+| Database  | Cloud SQL for PostgresSQL with 2 cores and 14.4GB at \$0.29/hr | $0.29                               |
+| Total     |                                                                | $0.60                               |
 
 For added customization, check out the [GCP Pricing Calculator](https://cloud.google.com/products/calculator/#id=f899c077-6b8b-4ccd-8f8c-974e04cbe872).
 
@@ -89,9 +89,9 @@ For added customization, check out the [GCP Pricing Calculator](https://cloud.go
 
 | Component | Item                                              | Hourly Cost (Annual Upfront Pricing) |
 | --------- | ------------------------------------------------- | ------------------------------------ |
-| Compute   | 3 x D8s v3 (8 vCPU(s), 32 GiB)                    | \$0.95                               |
-| Database  | 1 x Gen 5 (2 vCore), 25 GB Storage,LRS redundancy | \$0.18                               |
-| Total     |                                                   | \$1.13                               |
+| Compute   | 3 x D8s v3 (8 vCPU(s), 32 GiB)                    | $0.95                               |
+| Database  | 1 x Gen 5 (2 vCore), 25 GB Storage,LRS redundancy | $0.18                               |
+| Total     |                                                   | $1.13                               |
 
 The [Azure Price Calculator](https://azure.microsoft.com/en-us/pricing/calculator/?service=kubernetes-service) can be used to get an estimate for further customization.
 
