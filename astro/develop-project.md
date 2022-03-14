@@ -387,7 +387,7 @@ To build from a private repository, you need:
 
   :::
 
-3. Immediately after the `FROM` line specifying your Runtime image, add the following:
+3. In `Dockerfile.build` after the `FROM` line specifying your Runtime image, add the following:
 
     ```
     RUN --mount=type=ssh,id=github apk add --no-cache --virtual .build-deps \
