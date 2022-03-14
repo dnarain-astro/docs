@@ -360,7 +360,7 @@ At a high level, this setup creates a custom Dockerfile that builds your project
 
 ### Prerequisites
 
-To build from a private registry, you need:
+To build from a private repository, you need:
 
 - The [Astronomer CLI](install-cli.md).
 - An [Astro project](create-project.md).
