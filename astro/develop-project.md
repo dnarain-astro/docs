@@ -352,11 +352,15 @@ my_project
     └── prod.env
 ```
 
-## Build a Project with Python Packages from a Private GitHub Repository
+## Install Python Packages from a Private GitHub Repository
 
-This topic provides instructions for building your Astro project using Python packages from a private GitHub repository.
+This topic provides instructions for building your Astro project using Python packages from a private GitHub repository. At a high level, this setup creates a custom Docker image that mounts an SSH key for your repository whenever you build your project.
 
-At a high level, this setup creates a custom Dockerfile that builds your Astro project with the appropriate credentials to access your private GitHub repository. Any private Python packages specified in your `requirements.txt` file can then be pulled from your repository and installed when you build your project into a Docker image.
+:::info
+
+The following setup has been validated only with a single SSH key. Due to the nature of `ssh-agent`, you might need to modify this setup when using more than one SSH key per Docker image.
+
+:::
 
 ### Prerequisites
 
@@ -369,9 +373,9 @@ To build from a private repository, you need:
 
 ### Step 1. Create a file called Dockerfile.build
 
-1. In your Astro project, create a file create a duplicate of your `Dockerfile` named `Dockerfile.build`.
+1. In your Astro project, create a duplicate of your `Dockerfile` named `Dockerfile.build`.
 
-2. In `Dockerfile.build`, update add `AS stage` to the `FROM` line which specifies your Runtime image. For example, if you use Runtime 4.0.10, your `FROM` line would be:
+2. In `Dockerfile.build`, add `AS stage` to the `FROM` line which specifies your Runtime image. For example, if you use Runtime 4.0.10, your `FROM` line would be:
 
    ```text
    quay.io/astronomer/astro-runtime:4.0.10 AS stage
