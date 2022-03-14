@@ -46,7 +46,15 @@ To set up the pagila dataset on your local machine:
 
 ## The Table class
 
-To create or import a SQL table in the `astro` ecosystem, you can create a `Table` object. The `Table` object contains all of the metadata that's necessary for handling SQL table creation between Airflow tasks. `astro` can automatically pass metadata from a `Table` to downstream tasks, meaning that you only need to define your database context once at the start of your DAG.
+To create or import a SQL table in the `astro` ecosystem, you can create a `Table`. The `Table` object contains all of the metadata that's necessary for handling SQL table creation between Airflow tasks. `astro` can automatically pass metadata from a `Table` to downstream tasks, meaning that you only need to define your database context once at the start of your DAG.
+
+At a minimum, a `Table` can have the following arguments:
+
+- `conn_id` (_required_): The Airflow connection ID for the database
+- `name`: The name of the table
+- `database`: The database where this table is stored or should be stored
+
+### Input Tables and Output Tables
 
 The most important utility of a `Table` is that it can be passed into various `astro` functions as either an `input_table` or an `output_table`. An `output_table` automatically inherits the context of an `input_table`, meaning that you can create downstream data processing tasks using chains of `input_tables` and `output_tables`.
 
@@ -69,7 +77,7 @@ with dag:
 
 ### The TempTable Class
 
-If you want to ensure that the output of your task is a table that can be deleted at any time for garbage collection, you can declare it as a nameless `TempTable`. This places the output into your `temp` schema, which can then be bulk deleted. By default, all `aql.transform` functions will output to a `TempTable` unless a `Table` object is used in the `output_table` argument.
+If you want to ensure that the output of your task is a table that can be deleted at any time for garbage collection, you can declare it as a nameless `TempTable`. This places the output into your `temp` schema, which can then be bulk deleted. By default, all `aql.transform` functions will output to a `TempTable` unless you define a specific `output_table`.
 
 The following example DAG sets `output_table` to a nameless `TempTable`, meaning that any output from this DAG will be deleted once the DAG completes. If you wanted to keep your output, you would simply update the parameter to instantiate a `Table` instead.
 
@@ -99,7 +107,7 @@ with dag:
 
 ## Loading Data from Storage
 
-You can import data from a variety of data sources with the `load_file` function. The result of this function can be either an `Table` or a dataframe. For a full list of supported file locations and file types, see the [Astro README](https://github.com/astro-projects/astro#supported-technologies).
+You can import data from a variety of data sources with the `load_file` function. The result of this function can be either a `Table` or a dataframe. For a full list of supported file locations and file types, see the [Astro README](https://github.com/astro-projects/astro#supported-technologies).
 
 In the following example, data is loaded from S3 by specifying the path and connection ID for an S3 database using `aql.load_file`. The result of this load is stored in a `Table` that can be used as an input table in later transformations:
 
@@ -129,7 +137,7 @@ To interact with any external storage services, you need to first configure them
 
 ## Transforming Data
 
-After loading tables into your DAG, you can transform them. The `aql.transform` function serves as the "T" of the ETL system. By default, the result of this function is a `TempTable` generated from your `SELECT` statement, but you can also define a specific `output_table` to load the result of your transformation into. Tasks can pass these tables as if they were native Python objects.
+After loading tables into your DAG, you can transform them. The `aql.transform` function serves as the "T" of the ETL system. By default, the result of this function is a `TempTable` generated from your `SELECT` statement, but you can also define a specific `output_table` to load the result of your transformation into.
 
 The following example DAG shows how you can quickly pass tables between tasks when completing a data transformation:
 
