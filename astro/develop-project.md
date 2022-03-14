@@ -364,7 +364,7 @@ To build from a private repository, you need:
 
 - The [Astronomer CLI](install-cli.md).
 - An [Astro project](create-project.md).
-- A private GitHub repository that contains
+- A private GitHub repository that contains your private Python packages.
 - An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your private GitHub repo.
 
 ### Step 1. Create a file called Dockerfile.build
