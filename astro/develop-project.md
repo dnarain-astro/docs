@@ -430,14 +430,14 @@ To build from a private repository, you need:
 
 2. Replace the contents of your Astro project's `Dockerfile` with the following:
 
-    ```
-    FROM custom-<airflow-image>
-    ```
+   ```
+   FROM custom-<airflow-image>
+   ```
 
    If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would be:
 
-    ```
-    FROM custom-astro-runtime:4.0.10
-    ```
+   ```
+   FROM custom-astro-runtime:4.0.10
+   ```
 
 Your Astro project can now utilize Python packages from your private GitHub repository. To build and run your updated project, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
