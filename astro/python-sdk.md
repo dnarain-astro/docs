@@ -44,20 +44,13 @@ To set up the pagila dataset on your local machine:
         --conn-port '5433'
     ```
 
-## Creating Input and Output Tables
-
-Before you can complete any data transformations, you need to define input and output tables for Airflow. You can do this in either of the following ways:
-
-- Pass input tables as arguments when you call an `aql.transform` function.
-- Load data from a storage system into a new table.
-
-Regardless of how you load in your table, all database contexts must first be defined as [Airflow connections](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html).
-
-### The Table class
+## The Table class
 
 To create or import a SQL table in the `astro` ecosystem, you can create a `Table` object. The `Table` object contains all of the metadata that's necessary for handling SQL table creation between Airflow tasks. `astro` can automatically pass metadata from a `Table` to downstream tasks, meaning that you only need to define your database context once at the start of your DAG.
 
-In the following example, a SQL table is defined in the DAG instantiation. In each subsequent task, you only need to pass in an input table. This is because `astro` automatically passes in the additional context from the original `input_table` parameter.
+The most important utility of a `Table` is that it can be passed into various `astro` functions as either an `input_table` or an `output_table`. An `output_table` automatically inherits the context of an `input_table`, meaning that you can create downstream data processing tasks using chains of `input_tables` and `output_tables`.
+
+In the following example, a SQL table is imported as a `Table` in the DAG instantiation. This `Table` can then be automatically passed to any `astro` function, including for processing as a dataframe, without any additional configuration.
 
 ```python {10-12}
 from astro import sql as aql
@@ -104,7 +97,7 @@ with dag:
     my_second_sql_transformation(input_table_2=my_table)
 ```
 
-### Loading Data from Storage as a Table
+## Loading Data from Storage
 
 You can import data from a variety of data sources with the `load_file` function. The result of this function can be either an `Table` or a dataframe. For a full list of supported file locations and file types, see the [Astro README](https://github.com/astro-projects/astro#supported-technologies).
 
@@ -136,7 +129,7 @@ To interact with any external storage services, you need to first configure them
 
 ## Transforming Data
 
-After loading tables into your DAG, you can transform them. The `aql.transform` function serves as the "T" of the ETL system. Each use of the function creates a new output table from the `SELECT` statement. Tasks can pass these tables as if they were native Python objects.
+After loading tables into your DAG, you can transform them. The `aql.transform` function serves as the "T" of the ETL system. By default, the result of this function is a `TempTable` generated from your `SELECT` statement, but you can also define a specific `output_table` to load the result of your transformation into. Tasks can pass these tables as if they were native Python objects.
 
 The following example DAG shows how you can quickly pass tables between tasks when completing a data transformation:
 
