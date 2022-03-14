@@ -430,7 +430,7 @@ To build from a private repository, you need:
     DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-<airflow-image> .
     ```
 
-    If you have `quay.io/astronomer/astro-runtime:4.0.10` in your `Dockerfile.build`, for example, this command would be:
+    For example, if you have `quay.io/astronomer/astro-runtime:4.0.10` in your `Dockerfile.build`, this command would be:
 
     ```sh
     DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-quay.io/astronomer/ap-airflow:2.1.4 .
@@ -448,7 +448,7 @@ To build from a private repository, you need:
    FROM custom-<airflow-image>
    ```
 
-   If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would be:
+   For example, if your base Runtime image was `quay.io/astronomer/astro-runtime:4.0.10`, this line would be:
 
    ```
    FROM custom-astro-runtime:4.0.10
