@@ -369,7 +369,7 @@ To build from a private repository, you need:
 - The [Astronomer CLI](install-cli.md).
 - An [Astro project](create-project.md).
 - A private GitHub repository that contains your private Python packages.
-- An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your private GitHub repo.
+- An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) authorized to access your private GitHub repo.
 
 ### Step 1. Create a file called Dockerfile.build
 
@@ -387,37 +387,26 @@ To build from a private repository, you need:
 
   :::
 
-3. Directly below the `FROM` line specifying your Runtime image, add the following:
+3. Immediately after the `FROM` line specifying your Runtime image, add the following:
 
     ```
-    LABEL maintainer="Astronomer <humans@astronomer.io>"
-    ARG BUILD_NUMBER=-1
-    LABEL io.astronomer.docker=true
-    LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
-    LABEL io.astronomer.docker.airflow.onbuild=true
-    # Install Python and OS-Level Packages
-    COPY packages.txt .
-    RUN cat packages.txt | xargs apk add --no-cache
-
-    FROM stage1 AS stage2
-    RUN mkdir -p /root/.ssh
-    ARG PRIVATE_RSA_KEY=""
-    ENV PRIVATE_RSA_KEY=${PRIVATE_RSA_KEY}
-    RUN echo "${PRIVATE_RSA_KEY}" >> /root/.ssh/id_rsa
-    RUN chmod 600 /root/.ssh/id_rsa
-    RUN apk update && apk add openssh-client
-    RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts
-    # Install Python Packages
-    COPY requirements.txt .
-    RUN pip install --no-cache-dir -q -r requirements.txt
-
-    FROM stage1 AS stage3
-    # Copy requirements directory
-    COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
-    COPY . .
+    RUN --mount=type=ssh,id=github apk add --no-cache --virtual .build-deps \
+        build-base \
+        git \
+        python3 \
+        openssh-client \
+    && mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts \
+    && apk add --no-cache \
+        nodejs \
+        npm \
+        openssl \
+        yarn \
+    && yarn install \
+    && rm -rf /usr/local/share/.cache/yarn \
+    && apk del .build-deps openssh-client
     ```
 
-    During build, Docker will bundle your SSH keys, OS-Level packages in `packages.txt`, and Python Packages in `requirements.txt` into a Docker image.
+    This `RUN` command securely mounts your SSH key during build, which ensures that the key itself is not stored in the resulting Docker image filesystem or metadata.
 
   :::info
 
@@ -425,20 +414,18 @@ To build from a private repository, you need:
 
   :::
 
-### Step 2. Build a New Docker Image
-
-To build a new Docker image from `dockerfile.build`:
+### Step 2. Build a Custom Docker Image
 
 1. Run the following command to create a new Docker image from your `Dockerfile.build` file:
 
     ```sh
-    docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<runtime-image-tag> .
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-<airflow-image> .
     ```
 
     If you have `quay.io/astronomer/astro-runtime:4.0.10` in your `Dockerfile.build`, for example, this command would be:
 
     ```sh
-    docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-astro-runtime:4.0.10 .
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-quay.io/astronomer/ap-airflow:2.1.4 .
     ```
 
 2. Replace the contents of your Astro project's `Dockerfile` with the following:
@@ -453,4 +440,4 @@ To build a new Docker image from `dockerfile.build`:
     FROM custom-astro-runtime:4.0.10
     ```
 
-Your Astro project can now utilize Python packages from your private GitHub repository. From here, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
+Your Astro project can now utilize Python packages from your private GitHub repository. To build and run your updated project, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
