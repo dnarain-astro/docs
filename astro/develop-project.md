@@ -387,7 +387,7 @@ To build from a private repository, you need:
 
   :::
 
-3. Below the `FROM` line specifying your Runtime image, add the following:
+3. Directly below the `FROM` line specifying your Runtime image, add the following:
 
     ```
     LABEL maintainer="Astronomer <humans@astronomer.io>"
