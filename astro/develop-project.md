@@ -371,7 +371,7 @@ To build from a private repository, you need:
 - A private GitHub repository that contains your private Python packages.
 - An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) authorized to access your private GitHub repo.
 
-### Step 1. Create a file called Dockerfile.build
+### Step 1. Create Dockerfile.build
 
 1. In your Astro project, create a duplicate of your `Dockerfile` named `Dockerfile.build`.
 
