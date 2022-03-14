@@ -7,7 +7,7 @@ description: Learn how to use the Astro Python SDK.
 
 ## Overview
 
-The Python SDK simplifies ETL pipelines for Python engineers working in Airflow by treating SQL tables as Python objects. Using decorators, SQL tables can be manipulated, joined, templatized, and turned into dataframes using Python.
+The Python SDK simplifies ETL pipelines for Python engineers working in Airflow by treating SQL tables as Python objects. Using decorators, SQL tables can be manipulated, joined, templatized, and turned into DataFrames using Python.
 
 For each step of your pipeline, the SDK automatically passes database context, dependencies, and formatting so that you can focus on writing Python over database configuration.
 
@@ -58,7 +58,7 @@ At a minimum, a `Table` can have the following arguments:
 
 The most important utility of a `Table` is that it can be passed into various `astro` functions as either an `input_table` or an `output_table`. An `output_table` automatically inherits the context of an `input_table`, meaning that you can create downstream data processing tasks using chains of `input_tables` and `output_tables`.
 
-In the following example, a SQL table is imported as a `Table` in the DAG instantiation. This `Table` can then be automatically passed to any `astro` function, including for processing as a dataframe, without any additional configuration.
+In the following example, a SQL table is imported as a `Table` in the DAG instantiation. This `Table` can then be automatically passed to any `astro` function, including for processing as a DataFrame, without any additional configuration.
 
 ```python {10-12}
 from astro import sql as aql
@@ -107,7 +107,7 @@ with dag:
 
 ## Loading Data from Storage
 
-You can import data from a variety of data sources with the `load_file` function. The result of this function can be either a `Table` or a dataframe. For a full list of supported file locations and file types, see the [Astro README](https://github.com/astro-projects/astro#supported-technologies).
+You can import data from a variety of data sources with the `load_file` function. The result of this function can be either a `Table` or a DataFrame. For a full list of supported file locations and file types, see the [Astro README](https://github.com/astro-projects/astro#supported-technologies).
 
 In the following example, data is loaded from S3 by specifying the path and connection ID for an S3 database using `aql.load_file`. The result of this load is stored in a `Table` that can be used as an input table in later transformations:
 
@@ -191,13 +191,13 @@ def drop_table(table_to_drop):
     return "DROP TABLE IF EXISTS {{table_to_drop}}"
 ```
 
-## Working with Dataframes
+## Working with DataFrames
 
-You can use the `astro.dataframe` function to complete data analysis on a pandas dataframe. This function takes a `Table` as an argument and will treat it as a dataframe without any additional configuration, meaning that you can automatically complete data processing in a Pythonic context.
+You can use the `astro.dataframe` function to complete data analysis on a pandas DataFrame. This function takes a `Table` as an argument and will treat it as a DataFrame without any additional configuration, meaning that you can automatically complete data processing in a Pythonic context.
 
-You can also convert a dataframe back into a SQL table by passing this function a `Table` or `TempTable` in the `output_table` argument.
+You can also convert a DataFrame back into a SQL table by passing this function a `Table` or `TempTable` in the `output_table` argument.
 
-In the following example, the `actor` SQL table is automatically passed to `astro.dataframe` as a dataframe. The contents of the dataframe are printed, and then the dataframe is converted back into a SQL table using the `output_table` argument:
+In the following example, the `actor` SQL table is automatically passed to `astro.dataframe` as a DataFrame. The contents of the DataFrame are printed, and then the DataFrame is converted back into a SQL table using the `output_table` argument:
 
 ```python {14-16,22}
 import os
