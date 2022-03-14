@@ -253,7 +253,7 @@ Your project
 │   │   ├── test_inheritance.sql
 ```
 
-In this example, your DAG should run the `test_astro` query first, followed by `test_inheritance`. This time, however, all database context and dependencies will be defined directly in the `sql` query files.
+In this example, the DAG should run the `test_astro` query first, followed by `test_inheritance`. This time, however, all database context and dependencies will be defined directly in the `sql` query files.
 
 To define a database context in a `.sql` file, you can use the `conn_id` and `database` frontmatter options. For example, the following frontmatter defines the database context for `test_astro.sql`:
 
