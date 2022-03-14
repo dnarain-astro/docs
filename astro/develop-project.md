@@ -352,11 +352,11 @@ my_project
     └── prod.env
 ```
 
-## Build Project with Python Packages from a Private GitHub Repository
+## Build a Project with Python Packages from a Private GitHub Repository
 
 This topic provides instructions for building your Astro project using Python packages from a private GitHub repository.
 
-At a high level, this setup creates a custom Dockerfile that builds your project with the appropriate credentials to access your private GitHub repository. Any private Python packages specified in your `requirements.txt` file can then be pulled from your repository and installed in your image.
+At a high level, this setup creates a custom Dockerfile that builds your Astro project with the appropriate credentials to access your private GitHub repository. Any private Python packages specified in your `requirements.txt` file can then be pulled from your repository and installed when you build your project into a Docker image.
 
 ### Prerequisites
 
@@ -421,9 +421,9 @@ To build from a private repository, you need:
 
   :::
 
-### Step 2. Build a New Image
+### Step 2. Build a New Docker Image
 
-To build your project into a Docker image:
+To build a new Docker image from `dockerfile.build`:
 
 1. Run the following command to create a new Docker image from your `Dockerfile.build` file:
 
@@ -437,7 +437,7 @@ To build your project into a Docker image:
     docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-astro-runtime:4.0.10 .
     ```
 
-2. Replace the contents of your `Dockerfile` with the following:
+2. Replace the contents of your Astro project's `Dockerfile` with the following:
 
     ```
     FROM custom-<airflow-image>
