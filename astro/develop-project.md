@@ -356,6 +356,8 @@ my_project
 
 This topic provides instructions for building your Astro project using Python packages from a private GitHub repository. At a high level, this setup creates a custom Docker image that mounts an SSH key for your repository whenever you build your project.
 
+Although this setup is based on GitHub, the general steps can be completed with any hosted Git repository.
+
 :::info
 
 The following setup has been validated only with a single SSH key. Due to the nature of `ssh-agent`, you might need to modify this setup when using more than one SSH key per Docker image.
@@ -414,9 +416,15 @@ To build from a private repository, you need:
 
   :::
 
+  :::info
+
+  If your repository is hosted somewhere other than GitHub, replace the location of your SSH key in the `ssh-keyscan` command.
+
+  :::
+
 ### Step 2. Build a Custom Docker Image
 
-1. Run the following command to create a new Docker image from your `Dockerfile.build` file:
+1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to replace `<authorized-key>` with your SSH key file name:
 
     ```sh
     DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-<airflow-image> .
@@ -427,6 +435,12 @@ To build from a private repository, you need:
     ```sh
     DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-quay.io/astronomer/ap-airflow:2.1.4 .
     ```
+
+  :::info
+
+  If your repository is hosted somewhere other than GitHub, replace the location of your SSH key in the `--ssh` flag.
+
+  :::
 
 2. Replace the contents of your Astro project's `Dockerfile` with the following:
 
