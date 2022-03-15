@@ -97,7 +97,7 @@ Automatic `TempTable` deletion is in active development and coming soon.
 
 By default, all `aql.transform` functions will output to a `TempTable` unless you define a specific `output_table`.
 
-The following example DAG sets `output_table` to a nameless `TempTable`, meaning that any output from this DAG will be deleted once the DAG completes. If you wanted to keep your output, you would simply update the parameter to instantiate a `Table` instead.
+The following example DAG sets `output_table` to a nameless `TempTable`, meaning that any output from this DAG can be deleted once the DAG completes. If you wanted to keep your output, you would simply update the parameter to instantiate a `Table` instead.
 
 
 ```python {18}
