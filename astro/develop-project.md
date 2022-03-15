@@ -368,49 +368,63 @@ The following setup has been validated only with a single SSH key. Due to the na
 
 To build from a private repository, you need:
 
-- The [Astronomer CLI](install-cli.md).
+- The [Astro CLI](install-cli.md).
 - An [Astro project](create-project.md).
-- A private GitHub repository that contains your private Python packages.
+- A private GitHub repository with a directory of your Python packages.
 - An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) authorized to access your private GitHub repo.
 
 ### Step 1. Create Dockerfile.build
 
 1. In your Astro project, create a duplicate of your `Dockerfile` named `Dockerfile.build`.
 
-2. In `Dockerfile.build`, add `AS stage` to the `FROM` line which specifies your Runtime image. For example, if you use Runtime 4.0.10, your `FROM` line would be:
+2. In `Dockerfile.build`, add `AS stage` to the `FROM` line which specifies your Runtime image. For example, if you use Runtime 4.2.10, your `FROM` line would be:
 
    ```text
-   quay.io/astronomer/astro-runtime:4.0.10 AS stage
+   quay.io/astronomer/astro-runtime:4.2.10 AS stage1
    ```
 
   :::caution
 
-  If you use a `-base` version of Runtime, you need to replace this image with a non-`base` version before building your project from a private registry.
+  If you use a non-`base` distribution of Runtime, you need to replace it with the more customizable `base` distribution before building your project from a private registry. For more information, see [Distributions](runtime-version-lifecycle-policy.md#distribution)
 
   :::
 
-3. In `Dockerfile.build` after the `FROM` line specifying your Runtime image, add the following:
+3. In `Dockerfile.build` after the `FROM` line specifying your Runtime image, add the following configuration. Make sure to replace `<url-to-packages>` with the URL leading to the directory with your Python packages:
 
     ```
+    LABEL maintainer="Astronomer <humans@astronomer.io>"
+    ARG BUILD_NUMBER=-1
+    LABEL io.astronomer.docker=true
+    LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
+    LABEL io.astronomer.docker.airflow.onbuild=true
+    # Install Python and OS-Level Packages
+    COPY packages.txt .
+    RUN cat packages.txt | xargs apk add --no-cache
+
+    FROM stage1 AS stage2
     RUN --mount=type=ssh,id=github apk add --no-cache --virtual .build-deps \
         build-base \
         git \
         python3 \
         openssh-client \
     && mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts \
-    && apk add --no-cache \
-        nodejs \
-        npm \
-        openssl \
-        yarn \
-    && yarn install \
-    && rm -rf /usr/local/share/.cache/yarn \
-    && apk del .build-deps openssh-client
+    # Install Python Packages
+    COPY requirements.txt .
+    RUN pip install --no-cache-dir -q -r requirements.txt
+
+    FROM stage1 AS stage3
+    # Copy requirements directory
+    COPY --from=stage2 /usr/lib/python3.9/site-packages/ /usr/lib/python3.9/site-packages/
+    COPY . .
     ```
 
-    This `RUN` command securely mounts your SSH key during build, which ensures that the key itself is not stored in the resulting Docker image filesystem or metadata.
+    In order, these commands:
 
-  :::info
+    - Complete the standard installation of OS-level packages in `packages.txt`.
+    - Securely mount your SSH key during build, which ensures that the key itself is not stored in the resulting Docker image filesystem or metadata.
+    - Install Python-level packages from your private repository.
+
+  :::tip
 
   If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`.
 
@@ -424,16 +438,16 @@ To build from a private repository, you need:
 
 ### Step 2. Build a Custom Docker Image
 
-1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to replace `<authorized-key>` with your SSH key file name:
+1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to replace `<ssh-key>` with your SSH key file name:
 
     ```sh
-    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-<airflow-image> .
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<ssh-key>" -t custom-<airflow-image> .
     ```
 
-    For example, if you have `quay.io/astronomer/astro-runtime:4.0.10` in your `Dockerfile.build`, this command would be:
+    For example, if you have `quay.io/astronomer/astro-runtime:4.2.0` in your `Dockerfile.build`, this command would be:
 
     ```sh
-    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-quay.io/astronomer/ap-airflow:2.1.4 .
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-quay.io/astronomer/astro-runtime-4.2.0 .
     ```
 
   :::info
@@ -448,10 +462,10 @@ To build from a private repository, you need:
    FROM custom-<airflow-image>
    ```
 
-   For example, if your base Runtime image was `quay.io/astronomer/astro-runtime:4.0.10`, this line would be:
+   For example, if your base Runtime image was `quay.io/astronomer/astro-runtime:4.2.0`, this line would be:
 
    ```
-   FROM custom-astro-runtime:4.0.10
+   FROM custom-astro-runtime:4.2.0
    ```
 
-Your Astro project can now utilize Python packages from your private GitHub repository. To build and run your updated project, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
+Your Astro project can now utilize Python packages from your private GitHub repository. To test your DAGs, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
