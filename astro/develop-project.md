@@ -422,7 +422,7 @@ To build from a private repository, you need:
 
     - Complete the standard installation of OS-level packages in `packages.txt`.
     - Securely mount your SSH key during build, which ensures that the key itself is not stored in the resulting Docker image filesystem or metadata.
-    - Install Python-level packages from your private repository.
+    - Install Python-level packages from your private repository as specified in your `requirements.txt` file.
 
   :::tip
 
