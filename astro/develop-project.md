@@ -391,7 +391,7 @@ To build from a private repository, you need:
 
 3. In `Dockerfile.build` after the `FROM` line specifying your Runtime image, add the following configuration. Make sure to replace `<url-to-packages>` with the URL leading to the directory with your Python packages:
 
-    ```
+    ```docker
     LABEL maintainer="Astronomer <humans@astronomer.io>"
     ARG BUILD_NUMBER=-1
     LABEL io.astronomer.docker=true
