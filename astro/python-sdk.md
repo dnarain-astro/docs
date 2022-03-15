@@ -11,6 +11,12 @@ The Python SDK simplifies ETL pipelines for Python engineers working in Airflow 
 
 For each step of your pipeline, the SDK automatically passes database context, dependencies, and formatting so that you can focus on writing Python over database configuration.
 
+:::caution
+
+The Python SDK is still in alpha, meaning that breaking changes are likely in its next few releases. Consider avoiding using the SDK in production-level code until it is more stable.
+
+:::
+
 ## Prerequisites
 
 To use the Python SDK, you must first install the Astro SDK as described in [Setup the Astro SDK](install-astro-sdk).
@@ -77,7 +83,19 @@ with dag:
 
 ### The TempTable Class
 
-If you want to ensure that the output of your task is a table that can be deleted at any time for garbage collection, you can declare it as a nameless `TempTable`. This places the output into your `temp` schema, which can then be bulk deleted. By default, all `aql.transform` functions will output to a `TempTable` unless you define a specific `output_table`.
+If you want to ensure that the output of your task is a table that can be deleted at any time for garbage collection, you can declare it as a nameless `TempTable`. All `TempTables` are stored in your `temp` schema, which can then be bulk-cleaned by a database administrator using the following query:
+
+```SQL
+DROP SCHEMA tmp_astro CASCADE; CREATE SCHEMA tmp_astro;
+```
+
+:::info
+
+Automatic `TempTable` deletion is in active development and coming soon.
+
+:::
+
+By default, all `aql.transform` functions will output to a `TempTable` unless you define a specific `output_table`.
 
 The following example DAG sets `output_table` to a nameless `TempTable`, meaning that any output from this DAG will be deleted once the DAG completes. If you wanted to keep your output, you would simply update the parameter to instantiate a `Table` instead.
 
