@@ -138,7 +138,7 @@
 /software/0.28/manage-workspaces /software/manage-workspaces/ 301
 /software/0.28/overview /software/overview/ 301
 /software/0.28/platform-alerts /software/platform-alerts/ 301
-/software/0.28/pre-create-namespaces /software/namespace-pools/ 301
+/software/0.28/namespace-pools /software/namespace-pools/ 301
 /software/0.28/quickstart /software/quickstart/ 301
 /software/0.28/registry-backend /software/registry-backend/ 301
 /software/0.28/release-lifecycle-policy /software/release-lifecycle-policy/ 301
