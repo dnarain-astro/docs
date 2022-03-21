@@ -20,6 +20,7 @@ module.exports = {
       items: [
         'install-cli',
         'create-project',
+        'migrate-to-astro',
       ],
     },
     {
