@@ -63,6 +63,7 @@ module.exports = {
       label: 'Observability',
       items: [
         'deployment-metrics',
+        'lineage',
         'scheduler-logs',
         'airflow-alerts',
       ],
@@ -136,6 +137,7 @@ module.exports = {
         'known-limitations',
         'runtime-version-lifecycle-policy',
         'resource-reference-aws',
+        'lineage-overview',
         'platform-variables',
         {
           type: 'category',
