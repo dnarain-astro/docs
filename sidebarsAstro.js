@@ -137,6 +137,7 @@ module.exports = {
         'runtime-version-lifecycle-policy',
         'resource-reference-aws',
         'platform-variables',
+        'lineage-overview',
         {
           type: 'category',
           label: 'Security',
