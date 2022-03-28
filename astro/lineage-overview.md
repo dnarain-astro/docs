@@ -6,7 +6,7 @@ id: lineage-overview
 
 ## What is Data Lineage?
 
-[Data lineage](https://en.wikipedia.org/wiki/Data_lineage) is the concept of tracking and visualizing data from its origin to wherever it flows and is consumed downstream. Data lineage can help with everything from understanding your data sources, to troubleshooting job failures, to managing PII, to ensuring compliance with data regulations.
+[Data lineage](https://en.wikipedia.org/wiki/Data_lineage) is the concept of tracking and observing data flowing through a data pipeline. Data lineage can be used to understand data sources, troubleshoot job failures, manage PII, and ensure compliance with data regulations.
 
 ## Lineage on Astronomer
 
@@ -18,7 +18,7 @@ Astro leverages [OpenLineage](https://openlineage.io/) to emit lineage metadata.
 
 The following terms are used frequently when discussing data lineage and OpenLineage in particular. We define them here specifically in the context of using OpenLineage with Astronomer.
 
-- **Integration:** A means of gathering lineage data from a source system (e.g. a scheduler or data platform). For example, the OpenLineage Airflow integration allows lineage data to be collected from Airflow DAGs. Existing integrations use the OpenLineage API under the hood to automatically gather lineage data for each of your DAG runs. A full list of OpenLineage integrations can be found [here](https://openlineage.io/integration).
+- **Integration:** A means of gathering lineage data from a source system (e.g. a scheduler or data platform). For example, the OpenLineage Airflow integration allows lineage data to be collected from Airflow DAGs. A full list of OpenLineage integrations can be found [here](https://openlineage.io/integration).
 - **Extractor:** In the `openlineage-airflow` package, an extractor is a module that gathers lineage metadata from a specific hook or operator. For example, extractors exist for the `PostgresOperator` and `SnowflakeOperator`, meaning that if `openlineage-airflow` is installed and configured for your Airflow environment, then lineage data will be generated automatically from those operators when your DAG runs. An extractor must exist for a specific operator to get lineage data from it.
 - **Job:** A process which consumes or produces datasets. Jobs can be viewed on your lineage graph. In the context of Astronomer, an OpenLineage job corresponds to a task in your DAG (assuming the task is an instance of an operator that has an extractor built).
 - **Dataset:** A representation of a set of data in your lineage data and graph. For example, it might correspond to a table in your database or a set of data you run a Great Expectations check on. Typically a dataset is registered as part of your lineage data when a job writing to the dataset is completed (e.g. data is inserted into a table).
@@ -35,8 +35,8 @@ More specifically, OpenLineage with Airflow provides the following capabilities:
 - Easily see the blast radius of any job failures or changes to data by visualizing the relationship between jobs and datasets.
 - Identify where key data is used in jobs across an organization.
 
-These capabilities translate into real world benefits by:
+These capabilities translate can be used to achieve the following benefits:
 
-- Making recovery from complex failures quicker. The faster you can identify the problem and the blast radius, the easier it is to solve and prevent any erroneous decisions being made from bad data.
-- Making it easier for teams to work together across an organization. Visualizing the full scope of where a dataset is used reduces “sleuthing” time.
-- Helping ensure compliance with data regulations by fully understanding where data is used.
+- Make recovery from complex failures quicker. The faster you can identify the problem and the blast radius, the easier it is to solve and prevent any erroneous decisions being made from bad data.
+- Make it easier for teams to work together across an organization. Visualizing the full scope of where a dataset is used reduces “sleuthing” time.
+- Ensure compliance with data regulations by fully understanding where data is used.
