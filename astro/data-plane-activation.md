@@ -27,7 +27,7 @@ Your data plane will be deployed into a clean, dedicated AWS Account, in accorda
 
 This model helps the Astronomer team to get you started quickly, providing cloud-grade reliability and seamless connection to all of your data services. If you decide not to proceed with Astro, this account can be fully deleted at any point.
 
-By default, the Astronomer account has no access to your data services. We’ll guide you through how to make these connections securely, whether peering VPCs or making direct connections.
+By default, the Astronomer account has no access to your data services. We’ll guide you through how to make these connections securely, whether through peering VPCs or making direct connections.
 
 ### Pre-Flight Checklist
 
