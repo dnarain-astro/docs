@@ -40,6 +40,6 @@ When you arrive at your data plane activation appointment, please ensure that yo
 
 ### What’s Next
 
-After your data plane is activated, you’ll be able to spin up new Airflow environments, deploy pipelines through Astro CLI, and witness the ability of Astro Runtime.
+After your data plane is activated, you’ll be able to spin up new Airflow environments, deploy pipelines through the Astro CLI, and witness the ability of Astro Runtime.
 
-Our engineers want to help you get started quickly and get back to focusing on your pipelines. We’ll reach out in a few days to see how you’re doing, but don’t hesitate to reach out in the interim via Slack or e-mail!
+Our engineers want to help you get started quickly and get back to focusing on your pipelines. We’ll reach out in a few days to see how you’re doing, but don’t hesitate to reach out in the interim via Slack or e-mail.
