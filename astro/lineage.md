@@ -71,12 +71,6 @@ You can change how your graph is grouped by using the **Graph Cluster Mode** set
 
 Note that changing to a different graph cluster mode will change where certain nodes appear on the graph. However, all nodes and the vertices between them remain structurally the same regardless of your cluster mode.
 
-### View Graphs from Past Runs
-
-By default, the lineage graph shows the information based on your Deployment's most recent DAG runs. If you want to see the lineage graph for a previous DAG run, open the **Explore** page on the lefthand sidebar. This page is structured similarly to the Airflow UI's calendar view: It contains a list of your most recent task runs, as well as a calendar that shows all runs over the last year.
-
-To view the lineage graph from a previous date, click that date in the calendar and click on any of the tasks that appear in the **Runs on [Date]** table. This will bring up the lineage graph for the selected date and focus on the specific task that you clicked.
-
 ## Using the Information Pane
 
 Below the lineage graph is the **information pane**: a collection of information and metrics for a single selected node. When you click on a node in the graph, the information pane populates all of that nodes information.
@@ -167,3 +161,13 @@ This page also contains charts that show issue frequency over the last week, sor
 - Data quality issues
 
 To filter the **Issues** table based on a given issue types, click on the chart for that issue type.
+
+## View Graphs from Past Runs
+
+By default, the lineage graph shows the information based on your Deployment's most recent job runs. To see the lineage graph for a previous job run and high level metrics about all of your job runs, open the **Explore** page on the lefthand sidebar. This page is structured similarly to the Airflow UI's calendar view: It contains a list of your most recent runs, as well as a calendar that shows all runs over the last year.
+
+![Lineage summary page](/img/docs/lineage-explore.png)
+
+This view can help you get a better sense of the scope of your lineage integrations. It can also help you confirm that a recent run was picked up by the lineage backend as expected.
+
+To view the lineage graph from a previous date, click that date in the calendar and click on any of the tasks that appear in the **Runs on [Date]** table. This will bring up the lineage graph for the selected date and focus on the specific task that you clicked.
