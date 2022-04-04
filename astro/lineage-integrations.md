@@ -8,7 +8,7 @@ id: lineage-integrations
 
 This guide explains how to configure your data pipelines to emit lineage data to Astro.
 
-To generate lineage graphs for your data pipelines, you first need to configure your data pipelines to emit lineage data. Because lineage data can be generated in all stages of your pipeline, you can configure pipeline components outside of Astro, such as dbt or Databricks, to emit lineage data whenever they're running a job. Coupled with lineage data emmitted from your DAGs, Astro generates a lineage graph that can provide context to your data before, during, and after it reaches your Deployment.
+To generate lineage graphs for your data pipelines, you first need to configure your data pipelines to emit lineage data. Because lineage data can be generated in all stages of your pipeline, you can configure pipeline components outside of Astro, such as dbt or Databricks, to emit lineage data whenever they're running a job. Coupled with lineage data emitted from your DAGs, Astro generates a lineage graph that can provide context to your data before, during, and after it reaches your Deployment.
 
 Lineage data is generated via OpenLineage, which is an open source standard for lineage data creation and collection. Astro receives metadata about running jobs and datasets via the OpenLineage API. Each Astro Organization has an OpenLineage API key that you can specify in your external systems. Your external systems can use this API key to send lineage data back to your Control Plane.
 
@@ -28,7 +28,7 @@ You can access a version of this documentation directly from the **Lineage** tab
 Each Organization has a unique OpenLineage API key that is required to send lineage data from external systems to Astro. To find your Organization's key:
 
 1. In the Cloud UI, open the **Lineage** tab.
-2. In the lefthand lineage menu, click **Integrations**:
+2. In the left-hand lineage menu, click **Integrations**:
 
     ![Cloud UI Deployment Configuration](/img/docs/lineage-integrations.png)
 
