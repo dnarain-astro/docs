@@ -21,7 +21,7 @@ Generally, configuring a system to send lineage data requires:
 
 :::tip
 
-You can access a version of this documentation directly from the **Lineage** tab in the Cloud UI. This embedded documentation additionally loads your Organization's configuration values, such as your OpenLineage API key and your Astro base domain, directly into configuration steps.
+You can access a version of this documentation directly from the **Lineage** tab in the Cloud UI. The embedded documentation additionally loads your Organization's configuration values, such as your OpenLineage API key and your Astro base domain, directly into configuration steps.
 
 :::
 
