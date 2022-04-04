@@ -53,7 +53,7 @@ This key is required in each of the following integration guides.
 
 Lineage is configured automatically for all Deployment on Astro Runtime 4.2.0+. Therefore, the easiest way to add lineage to an existing Deployment on Runtime <4.2.0 is to [upgrade Runtime to at least 4.2.0](https://docs.astronomer.io/cloud/upgrade-runtime).
 
->**Note:** If you don't see lineage features enabled for a Deployment on Astro Runtime 4.2.0+, then you might need to [push code](depoloy-code.md) to the Deployment to trigger the configuration process.
+>**Note:** If you don't see lineage features enabled for a Deployment on Astro Runtime 4.2.0+, then you might need to [push code](deploy-code.md) to the Deployment to trigger the configuration process.
 
 To configure lineage on an existing Deployment on Runtime <4.2.0 without upgrading Runtime:
 
