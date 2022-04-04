@@ -159,7 +159,7 @@ To complete this setup, you need:
    $ dbt docs generate
    ```
 
-4. In your dbt project, run the [OpenLineage](https://openlineage.io) wrapper script using the `dbt run` [command](https://docs.getdbt.com/reference/commands/run):
+4. In your dbt project, run the [OpenLineage](https://openlineage.io/integration/dbt/) wrapper script using the `dbt run` [command](https://docs.getdbt.com/reference/commands/run):
 
    ```bash
    $ dbt-ol run
@@ -216,14 +216,9 @@ To complete this setup, you need:
 
 #### Verify
 
-To confirm that your setup was successful,  open the **Lineage** tab and open the **Home** menu. Any recent data quality assertion issues should appear in the **All Issues** table:
+To confirm that your setup was successful,  open the **Lineage** tab and open the **Home** menu. Any recent data quality assertion issues should appear in the **All Issues** table.
 
-![DataQuality failures in home page](docs/onboarding/images/data_quality_failures_list.png)
-
-If your code hasn't produced any data quality assertion issues, use the search bar to search for the relevant dataset and view its node on
-the lineage graph. When you click on the **Quality** tab, you should see metrics and assertion pass/fail counts:
-
-![DataQuality tab on demo site](docs/onboarding/images/orders_dataset_quality_tab.png)
+If your code hasn't produced any data quality assertion issues, use the search bar to search for the relevant dataset and view its node on the lineage graph. When you click on the **Quality** tab, you should see metrics and assertion pass/fail counts:
 
 </TabItem>
 
