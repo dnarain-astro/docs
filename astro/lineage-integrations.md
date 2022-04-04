@@ -12,6 +12,8 @@ To generate lineage graphs for your data pipelines, you first need to configure 
 
 Lineage data is generated via OpenLineage, which is an open source standard for lineage data creation and collection. Astro receives metadata about running jobs and datasets via the OpenLineage API. Each Astro Organization has an OpenLineage API key that you can specify in your external systems. Your external systems can use this API key to send lineage data back to your Control Plane.
 
+![Diagram showing how lineage data flows to Astro](/img/docs/lineage-diagram.png)
+
 Generally, configuring a system to send lineage data requires:
 
 - Installing an OpenLineage backend to emit lineage data from the system
@@ -30,7 +32,7 @@ Each Organization has a unique OpenLineage API key that is required to send line
 1. In the Cloud UI, open the **Lineage** tab.
 2. In the left-hand lineage menu, click **Integrations**:
 
-    ![Cloud UI Deployment Configuration](/img/docs/lineage-integrations.png)
+    ![Location of the "Integrations" button in the Lineage tab of the Cloud UI](/img/docs/lineage-integrations.png)
 
 3. In **Getting Started**, copy the value in **Lineage API Key**.
 
