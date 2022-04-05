@@ -254,3 +254,4 @@ In your Spark application, set the following properties to configure your lineag
 To confirm that your setup was successful, run a Spark job after you save your configuration. In the Cloud UI, open the **Lineage** tab and open the **Explore** menu. Your recent Spark job run should appear under **Most Recent Runs**.
 
 </TabItem>
+</Tabs>
