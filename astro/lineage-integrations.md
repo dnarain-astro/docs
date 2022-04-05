@@ -27,16 +27,16 @@ You can access a version of this documentation directly from the **Lineage** tab
 
 ### Retrieve Your OpenLineage API Key
 
-Each Organization has a unique OpenLineage API key that is required to send lineage data from external systems to Astro. To find your Organization's key:
+To send lineage data from an external system to Astro, you must specify your Organization's OpenLineage API key in the external system's configuration. To find your Organization's API key:
 
 1. In the Cloud UI, open the **Lineage** tab.
 2. In the left-hand lineage menu, click **Integrations**:
 
-    ![Location of the "Integrations" button in the Lineage tab of the Cloud UI](/img/docs/lineage-integrations.png)
+    ![Location of the "Integrations" button in the Lineage tab of the Cloud UI](/img/docs/lineage-docs.png)
 
 3. In **Getting Started**, copy the value in **Lineage API Key**.
 
-This key is required in each of the following integration guides.
+For more information about how to configure this API key in external systems, read the following integration guides. 
 
 ## Integration Guides
 
