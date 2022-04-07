@@ -70,14 +70,6 @@ module.exports = {
               label: '0.25',
               to: '/software/0.25/overview'
             },
-            {
-              label: '0.23',
-              to: '/software/0.23/overview'
-            },
-            {
-              label: '0.16 (Deprecated)',
-              to: '/software/0.16/overview'
-            },
           ],
         },
       ],
