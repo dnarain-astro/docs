@@ -2,7 +2,7 @@
 sidebar_label: 'Documentation Versions'
 title: 'Astronomer Software Documentation Versions'
 id: disaster-recovery
-description: A guide to platform backups and disaster recovery for Astronomer Software.
+description: A reference for all available versions of Astronomer documentation. 
 ---
 
 <!--version-specific-->
