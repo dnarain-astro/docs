@@ -1,8 +1,8 @@
 ---
 sidebar_label: 'Documentation Versions'
 title: 'Astronomer Software Documentation Versions'
-id: disaster-recovery
-description: A reference for all available versions of Astronomer documentation. 
+id: documentation-versions
+description: A reference for all available versions of Astronomer documentation.
 ---
 
 <!--version-specific-->
