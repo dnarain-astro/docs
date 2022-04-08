@@ -138,6 +138,7 @@ module.exports = {
         'resource-reference-aws',
         'platform-variables',
         'data-plane-activation',
+        'lineage-support-and-compatibility',
         {
           type: 'category',
           label: 'Security',
