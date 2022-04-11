@@ -30,7 +30,7 @@ Directed vertices connect jobs to datasets and vice versa. A single vertex will 
 
 In the following example, `insert` is a job that exists as part of the `etl_menu_items` grouping. A vertex connects `insert` to the `menu_items` dataset to indicate that `insert` interacted with this database.
 
-![Quality tab example](/img/docs/lineage-overview.png)
+![Lineage graph example showing different nodes and vertices](/img/docs/lineage-overview.png)
 
 To navigate the graph, click and drag your mouse across the screen. To zoom in on a specific section of the graph, you can either scroll your mouse or click the magnifying glass icons in the information pane on the bottom-left of the screen.
 
