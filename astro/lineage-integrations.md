@@ -36,7 +36,7 @@ To send lineage data from an external system to Astro, you must specify your Org
 
 3. In **Getting Started**, copy the value in **Lineage API Key**.
 
-For more information about how to configure this API key in external systems, read the following integration guides. 
+For more information about how to configure this API key in external systems, read the following integration guides.
 
 ## Integration Guides
 
@@ -51,9 +51,9 @@ For more information about how to configure this API key in external systems, re
     ]}>
 <TabItem value="astronomer">
 
-Lineage is configured automatically for all Deployment on Astro Runtime 4.2.0+. Therefore, the easiest way to add lineage to an existing Deployment on Runtime <4.2.0 is to [upgrade Runtime to at least 4.2.0](https://docs.astronomer.io/cloud/upgrade-runtime).
+Lineage is configured automatically for all Deployments on Astro Runtime 4.2.0+. The easiest way to add lineage to an existing Deployment on Runtime <4.2.0 is to [upgrade Runtime](https://docs.astronomer.io/cloud/upgrade-runtime).
 
->**Note:** If you don't see lineage features enabled for a Deployment on Astro Runtime 4.2.0+, then you might need to [push code](deploy-code.md) to the Deployment to trigger the configuration process.
+>**Note:** If you don't see lineage features enabled for a Deployment on Runtime 4.2.0+, then you might need to [push code](https://docs.astronomer.io/cloud/deploy-code) to the Deployment to trigger the automatic configuration process.
 
 To configure lineage on an existing Deployment on Runtime <4.2.0 without upgrading Runtime:
 
@@ -63,23 +63,24 @@ To configure lineage on an existing Deployment on Runtime <4.2.0 without upgradi
    openlineage-airflow
    ```
 
-2. [Push your changes](deploy-code.md) to your Deployment.
+2. [Push your changes](https://docs.astronomer.io/cloud/deploy-code) to your Deployment.
 
-3. In the Cloud UI, [set the following environment variables](environment-variables.md) in your Deployment:
+3. In the Cloud UI, [set the following environment variables](https://www.astronomer.io/docs/cloud/stable/deploy/environment-variables) in your Deployment:
 
     ```
     AIRFLOW__LINEAGE__BACKEND=openlineage.lineage_backend.OpenLineageBackend
+    OPENLINEAGE_NAMESPACE=<your-deployment-namespace>
     OPENLINEAGE_URL=https://api.<your-astro-base-domain>
     OPENLINEAGE_API_KEY=<your-lineage-api-key>
     ```
 
 #### Verify
 
-To view lineage metadata, go to your organization's [landing page](http://cloud.astronomer.io) and open the **Lineage** tab at the top of the page. If lineage was configured correctly, you should see your DAGs represented in the lineage graph.
+To view lineage metadata, go to your organization's [landing page](http://cloud.astronomer.io) and open the **Lineage** tab in the Organization view. You should see your most recent DAG run represented as a data lineage graph in the **Lineage** page.
 
->**Note:** Lineage information will appear only for DAGs that use operators which have extractors defined in the `openlineage-airflow` library, such as the `PostgresOperator` and `SnowflakeOperator`. For a full list of supported operators, see Astronomer documentation.
+>**Note:** Lineage information will appear only for DAGs that use operators which have extractors defined in the `openlineage-airflow` library, such as the `PostgresOperator` and `SnowflakeOperator`. For a full list of supported operators, see [Data Lineage Support and Compatibility](data-lineage-support-and-compatibility.md).
 
-> **Note:** To see lineage for existing DAGs, your DAGs need to run at least once after configuring lineage in order to emit data to the lineage backend and generate a graph.
+> **Note:** If you don't see lineage data for a DAG even after configuring lineage in your Deployment, you might need to run the DAG at least once so that it starts emitting lineage data.
 
 </TabItem>
 
@@ -119,7 +120,7 @@ After you save this configuration, lineage will be enabled for all Spark jobs ru
 
 #### Verify Setup
 
-To test that lineage was configured correctly on your Databricks cluster, run a test Spark job on Databricks. After your job runs, open the **Lineage** tab in the Cloud UI. If your configuration was successful, you should see your Spark job appear in the **Explore** tab. From here, you can click a job run to see it within a lineage graph.
+To test that lineage was configured correctly on your Databricks cluster, run a test Spark job on Databricks. After your job runs, open the **Lineage** tab in the Cloud UI and go to the **Explore** page. If your configuration was successful, you should see your Spark job appear in the **Most Recent Runs** table. From here, you can click a job run to see it within a lineage graph.
 
 </TabItem>
 
@@ -153,7 +154,7 @@ To complete this setup, you need:
                                           # We recommend a meaningful namespace like `dbt-dev`, `dbt-prod`, etc.
    ```
 
-3. Run the following command to generate the [`catalog.json`](https://docs.getdbt.com/reference/artifacts/catalog-json) for your dbt project:
+3. Run the following command to generate the [`catalog.json`](https://docs.getdbt.com/reference/artifacts/catalog-json) file for your dbt project:
 
    ```bash
    $ dbt docs generate
@@ -167,7 +168,7 @@ To complete this setup, you need:
 
 #### Verify Setup
 
-To confirm that your setup was successful, run a `dbt` model in your project. After you run this model, go to the Cloud UI and open the **Lineage** tab. In the **Explore** menu, you should see the run that you triggered.
+To confirm that your setup was successful, run a `dbt` model in your project. After you run this model, open the **Lineage** tab in the Cloud UI and go to the **Explore** page. If the setup was successful, you should see the run that you triggered in the **Most Recent Runs** table.
 
 </TabItem>
 
@@ -216,9 +217,9 @@ To complete this setup, you need:
 
 #### Verify
 
-To confirm that your setup was successful,  open the **Lineage** tab and open the **Home** menu. Any recent data quality assertion issues should appear in the **All Issues** table.
+To confirm that your setup was successful, open the **Lineage** tab in the Cloud UI and go to the **Issues** page. Any recent data quality assertion issues should appear in the **All Issues** table.
 
-If your code hasn't produced any data quality assertion issues, use the search bar to search for the relevant dataset and view its node on the lineage graph. When you click on the **Quality** tab, you should see metrics and assertion pass/fail counts:
+If your code hasn't produced any data quality assertion issues, use the search bar to search for a dataset and view its node on the lineage graph for a recent job run. When you click on the **Quality** tab, you should see metrics and assertion pass/fail counts.
 
 </TabItem>
 
@@ -251,7 +252,7 @@ In your Spark application, set the following properties to configure your lineag
 
 #### Verify
 
-To confirm that your setup was successful, run a Spark job after you save your configuration. In the Cloud UI, open the **Lineage** tab and open the **Explore** menu. Your recent Spark job run should appear under **Most Recent Runs**.
+To confirm that your setup was successful, run a Spark job after you save your configuration. After you run this model, open the Lineage tab in the Cloud UI and go to the **Explore** page. Your recent Spark job run should appear in the **Most Recent Runs** table.
 
 </TabItem>
 </Tabs>
