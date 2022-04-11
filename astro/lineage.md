@@ -1,41 +1,45 @@
 ---
 sidebar_label: 'Data Lineage'
 title: "Observe Deployments Through Data Lineage"
-id: lineage
+id: data-lineage
 ---
 ## Overview
 
-This guide explains how to navigate the Lineage graph and filter its data to better diagnose potential issues with your data pipelines.
+This guide explains how to navigate the Lineage graph and configure different views to explore the movement of your data and diagnose issues with your data pipelines.
 
-The **Lineage** tab includes real-time metadata genealogy and analytics for your Deployment. This information is rendered as a graph based on your entire data pipeline infrastructure, including both your DAGs and external databases such as Snowflake.
+The **Lineage** tab is available to all members of your Astro Organization. It includes real-time metadata genealogy and analytics across Deployments. This information is rendered as a graph that spans your entire data pipeline infrastructure, including individual DAGs as well as data sources and database connections. Relationships between your DAGs and datasets are represented by vertices, and potential errors for datasets and jobs are represented by the shape and color of a node.
 
-For example, the following lineage graph illustrates the relations between parts of a restaurant order information pipeline as a series of jobs (nodes with a gear icon) and datasets (nodes with a database icon).
+Because data lineage maps the full journey of your datasets, you can use this information to diagnose errors you detect from your Deployment logs and metrics. For example, if there was an error in an Airflow task log explaining that a task failed to load data into an S3 bucket, you could go to the **Lineage** tab on Astro to see the source of the problematic data and the point at which point it became invalid.
 
-Relationships between your DAGs and datasets are represented by vertices, and potential errors for datasets and jobs are represented by the shape and color of a node.
+## Lineage Tab Overview
 
-![Lineage graph example](/img/docs/lineage-overview.png)
+The Lineage tab is composed of three different pages available in a left-hand sidebar:
 
-Using this visualization, it becomes clear how upstream errors can affect downstream jobs, as well as how downstream errors might have originated from upstream errors. Based on your integrations, the nodes of this graph can represent parts of your data pipeline both within and beyond your Astronomer Deployment.
+- **Explore:** Summarizes the performance of all data pipeline runs over the last year and lists your most recent pipeline runs
+- **Issues:** Shows information about each job or dataset that caused an issue during a pipeline run
+- **Lineage:** By default, renders a data lineage graph for your most recent pipeline run
 
-Because the data lineage can map the full journey of your datasets, you can use this information to diagnose errors from the **Logs** and **Metrics** tabs. For example, if you receive an Airflow error log that a DAG failed to load data into an S3 bucket, you can go to the **Lineage** tab to see where your dataset became invalid, even if that occurred before your DAG started running.
+## Navigating the Lineage Page
 
-## Navigating the Lineage Graph
+In the **Lineage** page, Astronomer renders your data pipeline as a directed graph of **dataset** and **job** nodes:
 
-In the lineage tab, Astronomer renders your data pipeline as a set of **dataset** and **job** nodes connected in a graph:
-
-- Each job represents an individual step in your data pipeline, such as an Airflow task in your Deployment.
+- Each job represents an individual step in your data pipeline, such as an Airflow task in your Deployment or a Spark job.
 - Each dataset represents a data source that your tasks interact with, such as a Snowflake database.
 
 Directed vertices connect jobs to datasets and vice versa. A single vertex will never connect two jobs or two datasets together.
 
-You can navigate the graph by clicking and dragging your mouse across the screen. You can zoom in/out to a specific part of the graph by scrolling with your mouse wheel/ mousepad or by clicking the magnifying glass icons next on the information pane.
+In the following example, `insert` is a job that exists as part of the `etl_menu_items` grouping. A vertex connects `insert` to the `menu_items` dataset to indicate that `insert` interacted with this database.
+
+![Quality tab example](/img/docs/lineage-overview.png)
+
+To navigate the graph, click and drag your mouse across the screen. To zoom in on a specific section of the graph, you can either scroll your mouse or click the magnifying glass icons in the information pane on the bottom-left of the screen.
 
 To learn more information about a dataset or job, you can either hover over or click its node. Hovering over a node gives you high level information about the node at a glance. Specifically you'll see:
 
-- **Namespace**: Your Astronomer Namespace
-- **Name**: Your DAG ID and task ID, formatted as `<dag-id>.<task-id>`
-- **Run information (Job only)**: Metadata and status information about a job run
-- **Quality checks (Dataset only)**: The status of each completed data quality check for a dataset
+- **Namespace**: The namespace of the Deployment in which the job ran
+- **Name**: The DAG ID and task ID of the job, formatted as `<dag-id>.<task-id>`
+- **Run information (job only)**: Metadata and status information about the job run
+- **Quality checks (dataset only)**: The status of a dataset's data quality checks
 
 Clicking a node populates the information pane with detailed information about the node. For more information about how to use this view, see [Using the Information Pane](lineage.md#using-the-information-page).
 
@@ -43,7 +47,7 @@ Clicking a node populates the information pane with detailed information about t
 
 Clicking on the key icon in the information pane opens the graph legend. The legend provides a visual guide to help you distinguish between:
 
-- Job nodes and Dataset nodes.
+- Job nodes and dataset nodes.
 - User-selected and unselected nodes.
 - Completed, running, failed, and aborted jobs
 - Completed, running, failed, and aborted dataset checks
@@ -122,7 +126,7 @@ The Quality Metrics chart shows the pass/fail status of quality assertions in a 
 
 To see details on the assertions that have failed, hover over a given point on the chart.
 
-### Using the Compare Tab
+### Compare Lineage Between Runs Using the Compare Tab
 
 The **Compare** tab shows a list of past job runs for a given job. Using the compare tab, you can select pairs of job runs to see what changed in your pipelines between the two runs. The general Compare tab workflow is as follows:
 
