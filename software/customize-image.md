@@ -263,7 +263,7 @@ To build from a private repository, you need:
 
 ### Step 1: Specify the Private Repository in Your Project
 
-To add Python packages from a private repository to your Software project, specify the SSH URL to your repository in your project's `requirements.txt` file. For example, to clone a private repository named `mypackages`, you would add the following line to `requirements.txt`
+To add Python packages from a private repository to your Software project, specify the [SSH URL](https://docs.github.com/en/enterprise-server@3.1/get-started/getting-started-with-git/about-remote-repositories#cloning-with-ssh-urls) to your repository in your project's `requirements.txt` file. For example, to clone a private repository named `mypackages`, you would add the following line to `requirements.txt`
 
 ```
 git+git@github.com:myorganization/mypackages.git
