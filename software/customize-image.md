@@ -260,7 +260,16 @@ To build from a private repository, you need:
 - A private GitHub repository with a directory of your Python packages.
 - An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) authorized to access your private GitHub repo.
 
-### Step 1. Create Dockerfile.build
+
+### Step 1: Specify the Private Repository in Your Project
+
+To add Python packages from a private repository to your Software project, specify the SSH URL to your repository in your project's `requirements.txt` file. For example, to clone a private repository named `mypackages`, you would add the following line to `requirements.txt`
+
+```
+git+git@github.com:myorganization/mypackages.git
+```
+
+### Step 2. Create Dockerfile.build
 
 1. In your Software project, create a duplicate of your `Dockerfile` named `Dockerfile.build`.
 
@@ -323,7 +332,7 @@ To build from a private repository, you need:
 
   :::
 
-### Step 2. Build a Custom Docker Image
+### Step 3. Build a Custom Docker Image
 
 1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to replace `<ssh-key>` with your SSH key file name:
 
