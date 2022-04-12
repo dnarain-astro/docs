@@ -183,49 +183,63 @@ At its core, your CI/CD pipeline will first authenticate to Astronomer's private
 The following setup is an example implementation of CI/CD using GitHub Actions. These steps cover both the implementation and the workflow necessary to create a fully functional CI/CD pipeline.
 
 1. Create a GitHub repository for an Astronomer project. Ensure your repo has a development branch and a main branch. In this example, the branches are named `dev` and `main`.
-2. [Create a Service Account](ci-cd.md#step-1-create-a-service-account) for your Astronomer Workspace.
-3. Follow instructions in [GitHub documentation](https://docs.github.com/en/actions/reference/encrypted-secrets) to add your Astronomer Service Account as a secret to your repository. In the example below, that secret is named `SERVICE_ACCOUNT_KEY`.
+2. Create two [Deployment-level service accounts](ci-cd.md#step-1-create-a-service-account): One for your Dev Deployment and one for your Production Deployment. 
+3. Follow instructions in [GitHub documentation](https://docs.github.com/en/actions/reference/encrypted-secrets) to add your service accounts as secrets to your repository. In the example below, these secrets are named `SERVICE_ACCOUNT_KEY` and `SERVICE_ACCOUNT_KEY_DEV`.
 4. Go to the Actions tab of your GitHub repo and create a new action with a `main.yml` file. To achieve the recommended workflow described in [Overview](ci-cd.md#overview), use the following action:
 
     ```yaml
-    name: CI
+    name: Astronomer CI - Deploy Code
     on:
       push:
-        branch: [dev, main]
+        branches: [dev]
+      pull_request:
+        types:
+          - closed
+        branches: [main]
     jobs:
       dev-push:
+        if: github.ref == 'refs/heads/dev'
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v2
-        - name: Push to registry
-          uses: elgohr/Publish-Docker-Github-Action@2.6
-          if: github.ref == 'refs/heads/dev'
+        - name: Check out the repo
+          uses: actions/checkout@v2
+        - name: Log in to registry
+          uses: docker/login-action@v1
           with:
-              name: <dev-release-name>/airflow:ci-${{ github.sha }}
-              username: _
-              password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-              registry: registry.${BASE_DOMAIN}
+            registry: registry.${BASE_DOMAIN}
+            username: _
+            password: ${{ secrets.SERVICE_ACCOUNT_KEY_DEV }}
+        - name: Build and push image
+          uses: docker/build-push-action@v2
+          with:
+            push: true
+            tags: registry.${BASE_DOMAIN}/<dev-release-name>/airflow:ci-${{ github.sha }}
       prod-push:
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v2
-        - name: Push to registry
-          uses: elgohr/Publish-Docker-Github-Action@2.6
-          if: github.ref == 'refs/heads/main'
+        - name: Check out the repo
+          uses: actions/checkout@v2
+        - name: Log in to registry
+          uses: docker/login-action@v1
           with:
-              name: <prod-release-name>/airflow:ci-${{ github.sha }}
-              username: _
-              password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-              registry: registry.${BASE_DOMAIN}
+            registry: registry.${BASE_DOMAIN}
+            username: _
+            password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+        - name: Build and push image
+          uses: docker/build-push-action@v2
+          with:
+            push: true
+            tags: registry.${BASE_DOMAIN}/<prod-release-name>/airflow:ci-${{ github.sha }}
     ```
 
     Ensure the branches match the names of the branches in your repository, and replace `<dev-release-name>` and `<prod-release-name>` with the respective release names of your development and production Airflow Deployments on Astronomer.
 
-5. Test the GitHub Action by making a change on your `dev` branch and committing that change. This should update your development Airflow Deployment on Astronomer, which you can confirm in the Software UI. If that update was successful, try then merging `dev` into `main` to update your production Airflow Deployment. If both updates were successful, you now have a functioning, scalable CI/CD pipeline that can automatically deploy code to multiple Airflow Deployments.
+5. Test the GitHub Action by making a change on your `dev` branch and committing that change. This should update your development Airflow Deployment on Astronomer, which you can confirm in the Software UI. If that update was successful, try opening a pull request and then merging `dev` into `main` to update your production Airflow Deployment. If both updates were successful, you now have a functioning, scalable CI/CD pipeline that can automatically deploy code to multiple Airflow Deployments.
 
-> **Note:** The prod-push action as defined here will run on any push to the `main` branch, including a pull request and merge from the `dev` branch as we recommend.
+> **Note:** The prod-push action as defined here will only run after merging a pull request from the `dev` branch as we recommend.
 >
->To further restrict this to run only on a pull request, you can limit whether your users can push directly to the `main` branch within your repository or your CI tool, or you could modify the action to make it more limited.
+>To further restrict this pipeline, you can add branch protection settings in GitHub to limit whether your users can push directly to the `main` branch within your repository or your CI tool, or you can modify the action as needed.
 
 The following sections provide basic templates for configuring single CI/CD pipelines using popular CI/CD tools. Each template can be implemented to produce a simple CI/CD pipeline similar to the one above, but they can also be reconfigured to manage any number of branches or Deployments based on your needs.
 
@@ -426,14 +440,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Publish to Astronomer.io
-      uses: elgohr/Publish-Docker-Github-Action@2.6
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Log in to registry
+      uses: docker/login-action@v1
       with:
-        name: $RELEASE_NAME/airflow:ci-${{ github.sha }}
+        registry: registry.$BASE_DOMAIN
         username: _
         password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-        registry: registry.$BASE_DOMAIN
+    - name: Build and push images
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: registry.$BASE_DOMAIN/$RELEASE_NAME/airflow:ci-${{ github.sha }}
 ```
 
 > **Note:** Make sure to replace `$RELEASE_NAME` in the example above with your deployment's release name and to store your Service Account Key in your GitHub repo's secrets according to [this GitHub guide]( https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables).

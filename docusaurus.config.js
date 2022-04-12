@@ -13,10 +13,10 @@ module.exports = {
   projectName: 'docs', // Usually your repo name.
   themeConfig: {
     image: 'img/meta.png',
+    autoCollapseSidebarCategories: true,
     algolia: {
       apiKey: '99354995bfad26ed950bdb701bc56b6b',
       indexName: 'published-docs',
-
       // Optional: see doc section below
       contextualSearch: true,
 
@@ -31,16 +31,6 @@ module.exports = {
     },
     colorMode: {
       disableSwitch: false,
-      switchConfig: {
-        darkIcon: '☾',
-        darkIconStyle: {
-          marginLeft: '1px',
-        },
-        lightIcon: '☼',
-        lightIconStyle: {
-          marginLeft: '1px',
-        },
-      },
     },
     navbar: {
       title: 'Docs',
@@ -59,14 +49,14 @@ module.exports = {
         {
           type: 'dropdown',
           label: 'Software',
-          to: 'software/overview',
+          to: 'software/',
           activeBaseRegex: 'software',
           position: 'left',
           activeClassName: 'navbar__link--active',
           items: [
             {
               label: '0.28 (Latest)',
-              to: '/software/overview',
+              to: '/software/',
             },
             {
               label: '0.27',
@@ -124,7 +114,7 @@ module.exports = {
           items: [
             {
               label: 'Overview',
-              to: 'software/overview',
+              to: 'software/',
             },
             {
               label: 'Install on AWS',
