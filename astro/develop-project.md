@@ -479,3 +479,103 @@ git+git@github.com:myorganization/mypackages.git
    ```
 
 Your Astro project can now utilize Python packages from your private GitHub repository. To test your DAGs, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
+
+
+## Install Python Packages from a Private pip Repository
+
+This topic provides instructions for building your Astro project using Python packages from a private pip repository. In some organizations, python packages will be prebuilt and pushed to a hosted private pip server (such as pypiserver, or Nexus Repository) or managed service (such as PackageCloud or Gitlab). Similar to (installing from a private GitHub Repository)[Install Python Packages from a Private GitHub Repository], builds that require packages from a private pip repository must be done using a multi-stage build.
+
+### Prerequisites
+
+To build from a private repository, you need:
+
+- An [Astro project](create-project.md).
+- A private pip repository with username and password authentication.
+
+### Step 1: Add privately hosted packages to requirements.txt
+
+Privately hosted packages should already be built and pushed to the private repository. Depending on the repository used, it should be possible to browse and find the necessary package and version required. The package name and (optional) version can be added to requirements.txt in the same syntax as for public (PyPI) packages. The requirements.txt can contain both publically accessible and private packages.
+
+
+  :::caution
+
+  Ensure that the name of the package on the private repository does not clash with any existing python packages. The order that pip will search indices might produce unexpected results.
+
+  :::
+
+### Step 2: Create Dockerfile.build
+
+1. In your Astro project, create a duplicate of your `Dockerfile` named `Dockerfile.build`.
+
+2. In `Dockerfile.build`, add `AS stage` to the `FROM` line which specifies your Runtime image. For example, if you use Runtime 4.2.10, your `FROM` line would be:
+
+   ```text
+   quay.io/astronomer/astro-runtime:4.2.10 AS stage1
+   ```
+
+  :::caution
+
+  If you use a non-`base` distribution of Runtime, you need to replace it with the more customizable `base` distribution before building your project from a private registry. For more information, see [Distributions](runtime-version-lifecycle-policy.md#distribution)
+
+  :::
+
+3. In `Dockerfile.build` after the `FROM` line specifying your Runtime image, add the following configuration. Make sure to replace `<url-to-packages>` with the URL leading to the directory with your Python packages:
+
+    ```docker
+    LABEL maintainer="Astronomer <humans@astronomer.io>"
+    ARG BUILD_NUMBER=-1
+    LABEL io.astronomer.docker=true
+    LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
+    LABEL io.astronomer.docker.airflow.onbuild=true
+    # Install Python and OS-Level Packages
+    COPY packages.txt .
+    RUN cat packages.txt | xargs apk add --no-cache
+
+    FROM stage1 AS stage2
+    # Install Python Packages
+    ARG PIP_EXTRA_INDEX_URL
+    ENV PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL}
+    COPY requirements.txt .
+    RUN pip install --no-cache-dir -q -r requirements.txt
+
+    FROM stage1 AS stage3
+    # Copy requirements directory
+    COPY --from=stage2 /usr/lib/python3.9/site-packages/ /usr/lib/python3.9/site-packages/
+    COPY . .
+    ```
+
+    In order, these commands:
+
+    - Complete the standard installation of OS-level packages in `packages.txt`.
+    - Add the environment variable `PIP_EXTRA_INDEX_URL` to instruct pip on where to look for non-public packages.
+    - Install public and private Python-level packages from your `requirements.txt` file.
+
+
+### Step 3: Build a Custom Docker Image
+
+1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to substitute in the pip repository and associated credentials:
+
+    ```sh
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --build-arg PIP_EXTRA_INDEX_URL=https://${<repo-username>}:${<repo-password>}@<private-pypi-repo-domain-name> -t custom-<airflow-image> .
+    ```
+
+    For example, if you have `quay.io/astronomer/astro-runtime:4.2.0` in your `Dockerfile.build`, this command would be:
+
+    ```sh
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-astro-runtime-4.2.0 .
+    ```
+
+
+2. Replace the contents of your Astro project's `Dockerfile` with the following:
+
+   ```
+   FROM custom-<airflow-image>
+   ```
+
+   For example, if your base Runtime image was `quay.io/astronomer/astro-runtime:4.2.0`, this line would be:
+
+   ```
+   FROM custom-astro-runtime:4.2.0
+   ```
+
+Your Astro project can now install python packages hosted on private repositories. To test your DAGs, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
