@@ -14,7 +14,17 @@ If you have any questions or a bug to report, don't hesitate to reach out to [As
 
 **Latest Runtime Version**: 4.2.4 ([Release notes](runtime-release-notes.md))
 
-**Latest CLI Version**: 1.3.3 ([Release notes](cli-release-notes.md))
+**Latest CLI Version**: 1.4.0 ([Release notes](cli-release-notes.md))
+
+## April 14, 2022
+
+### Additional Improvements
+
+- The Data Plane now connects to various AWS services via [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-services-overview.html). This ensures that traffic to AWS services is kept private and does not traverse the NAT and Internet gateways, reducing the risk of exposing your resources to the internet. 
+
+### Bug Fixes
+
+- Fixed an issue where you could not add a new user to a Workspace if the user had an email address that contained uppercase characters
 
 ## March 31, 2022
 
@@ -62,12 +72,16 @@ For a full list of AWS regions supported on Astro, see [AWS Resource Reference](
 - The Cloud UI now includes a button that links to Astronomer [support](https://support.astronomer.io/) and [status](https://status.astronomer.io/) pages:
 
     ![Runtime Tag banner](/img/release-notes/support-button.png)
-    
+
 ## March 25, 2022
 
-### Modify the Max Node Count for Clusters
+### Maximum Node Count is now Configurable per Cluster
 
-By default, Clusters have a max node count of 20. To help scale your Clusters for their specific use cases, you can now change the max node count of a new or existing Cluster to any value from 2 to 100. To update this setting for a Cluster, reach out to [Astronomer support](https://support.astronomer.io) and provide the name of your cluster and the desired max node count.
+As of this release, **Maximum Node Count** is now a configurable setting for new and existing Clusters. On Astro, maximum node count represents the total number of EC2 nodes that your Cluster can support at any given time. For an Astro Cluster on AWS, EC2 nodes are the primary unit of infrastructure required to run a Deployment and its components, including workers and the Airflow Scheduler. New Clusters have a maximum node count of 20 by default, but the setting can be modified to any value from 2 to 100 at any time.
+
+Previously, maximum node count was a fixed, global setting that applied to all customers on Astro and could not be configured per Cluster. Now, your organization can modify this setting as your workloads evolve and more Deployments are created. Once the limit is reached, your Cluster will not be able to auto-scale and worker pods may fail to schedule.
+
+To update this setting for an existing Cluster, reach out to [Astronomer support](https://support.astronomer.io) and provide the name of your cluster and the desired maximum node count.
 
 ### Additional Improvements
 

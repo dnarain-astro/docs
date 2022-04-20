@@ -241,7 +241,7 @@ astro dev start --env .env
 
 ## Install Python Packages from a Private GitHub Repository
 
-This topic provides instructions for building your Software project using Python packages from a private GitHub repository. At a high level, this setup creates a custom Docker image that mounts an SSH key for your repository whenever you build your project.
+This topic provides instructions for building your Astro project with Python packages from a private GitHub repository.  At a high level, this setup entails specifying your private packages in `requirements.txt`, creating a custom Docker image that mounts a GitHub SSH key for your private GitHub repositories, and building your project with this Docker image.
 
 Although this setup is based on GitHub, the general steps can be completed with any hosted Git repository.
 
@@ -251,41 +251,56 @@ The following setup has been validated only with a single SSH key. Due to the na
 
 :::
 
-### Prerequisites
+Although this setup is based on GitHub, the general steps can be completed with any hosted Git repository.
 
-To build from a private repository, you need:
+:::info
+
+The following setup has been validated only with a single SSH key. Due to the nature of `ssh-agent`, you might need to modify this setup when using more than one SSH key per Docker image.
+
+:::
+
+To install Python packages from a private GitHub repository on Astronomer Software, you need:
 
 - The [Astronomer CLI](cli-quickstart.md).
 - A [Software project](create-project.md).
-- A private GitHub repository with a directory of your Python packages.
-- An [SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) authorized to access your private GitHub repo.
+- Custom Python packages that are [installable via pip](https://packaging.python.org/en/latest/tutorials/packaging-projects/).
+- A private GitHub repository for each of your custom Python packages.
+- A [GitHub SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) authorized to access your private GitHub repositories.
+
+This setup assumes that each custom Python package is hosted within its own private GitHub repository. Installing multiple packages from a single private GitHub repository is not supported.
 
 
 ### Step 1: Specify the Private Repository in Your Project
 
-To add Python packages from a private repository to your Software project, specify the [SSH URL](https://docs.github.com/en/enterprise-server@3.1/get-started/getting-started-with-git/about-remote-repositories#cloning-with-ssh-urls) to your repository in your project's `requirements.txt` file. For example, to clone a private repository named `mypackages`, you would add the following line to `requirements.txt`
+To add a Python package from a private repository to your Software project, specify the repository's SSH URL in your project's `requirements.txt` file. This URL should be formatted as `git+ssh://git@github.com/<your-github-organization-name>/<your-private-repository>.git`.
+
+For example, to install the `mypackage1` & `mypackage2` from `myorganization`, as well as `numpy v 1.22.1`, you would add the following to `requirements.txt`:
 
 ```
-git+git@github.com:myorganization/mypackages.git
+git+ssh://git@github.com/myorganization/mypackage1.git
+git+ssh://git@github.com/myorganization/mypackage2.git
+numpy==1.22.1
 ```
+
+This example assumes that the name of each of your Python packages is identical to the name of its corresponding GitHub repository. In other words,`mypackage1` is both the name of the package and the name of the repository.
 
 ### Step 2. Create Dockerfile.build
 
-1. In your Software project, create a duplicate of your `Dockerfile` named `Dockerfile.build`.
+1. In your Astro project, create a duplicate of your `Dockerfile` and name it `Dockerfile.build`.
 
 2. In `Dockerfile.build`, add `AS stage` to the `FROM` line which specifies your Astronomer Certified image. For example, if you use Certified 2.2.5, your `FROM` line would be:
 
    ```text
-   quay.io/astronomer/ap-airflow:2.2.5-onbuild AS stage1
+   FROM quay.io/astronomer/ap-airflow:2.2.5 AS stage1
    ```
 
   :::caution
 
-  If you use a non-`base` distribution of Certified, you need to replace it with the more customizable `base` distribution before building your project from a private registry. For more information, see [Distributions](ac-support-policy.md#distribution)
+  If you use the default distribution of Astronomer Certified, make sure to remove the `-onbuild` part of the image. The Astronomer Certified distribution that does not specify `-onbuild` is built to be customizable and does not include default build logic. For more information, see [Distributions](ac-support-policy.md#distribution)
 
   :::
 
-3. In `Dockerfile.build` after the `FROM` line specifying your Certified image, add the following configuration. Make sure to replace `<url-to-packages>` with the URL leading to the directory with your Python packages:
+3. In `Dockerfile.build` after the `FROM` line specifying your Certified image, add the following configuration:
 
     ```docker
     LABEL maintainer="Astronomer <humans@astronomer.io>"
@@ -316,13 +331,13 @@ git+git@github.com:myorganization/mypackages.git
 
     In order, these commands:
 
-    - Complete the standard installation of OS-level packages in `packages.txt`.
-    - Securely mount your SSH key during build, which ensures that the key itself is not stored in the resulting Docker image filesystem or metadata.
-    - Install Python-level packages from your private repository as specified in your `requirements.txt` file.
+    - Install any OS-level packages specified in `packages.txt`.
+    - Securely mount your GitHub SSH key at build time. This ensures that the key itself is not stored in the resulting Docker image filesystem or metadata.
+    - Install all Python-level packages in `requirements.txt` file, including those from a private GitHub repository.
 
   :::tip
 
-  If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`.
+  If you don't want keys in this file to be pushed back up to your GitHub repository, consider adding this file to `.gitignore`.
 
   :::
 
@@ -334,16 +349,16 @@ git+git@github.com:myorganization/mypackages.git
 
 ### Step 3. Build a Custom Docker Image
 
-1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to replace `<ssh-key>` with your SSH key file name:
+1. Run the following command to create a new Docker image from your `Dockerfile.build` file, making sure to replace `<ssh-key>` with your SSH key file name and `<certified-image>` with your Certified image:
 
     ```sh
-    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<ssh-key>" -t custom-<airflow-image> .
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<ssh-key>" -t custom-<certified-image> .
     ```
 
-    For example, if you have `quay.io/astronomer/ap-airflow:2.2.5-onbuild` in your `Dockerfile.build`, this command would be:
+    For example, if you have `quay.io/astronomer/ap-airflow:2.2.5` in your `Dockerfile.build`, this command would be:
 
     ```sh
-    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-ap-airflow:2.2.5-onbuild .
+    DOCKER_BUILDKIT=1 docker build -f Dockerfile.build --progress=plain --ssh=github="$HOME/.ssh/<authorized-key>" -t custom-ap-airflow:2.2.5 .
     ```
 
   :::info
@@ -355,13 +370,13 @@ git+git@github.com:myorganization/mypackages.git
 2. Replace the contents of your Software project's `Dockerfile` with the following:
 
    ```
-   FROM custom-<airflow-image>
+   FROM custom-<certified-image>
    ```
 
-   For example, if your base Certified image was `quay.io/astronomer/ap-airflow:2.2.5-onbuild`, this line would be:
+   For example, if your base Certified image was `quay.io/astronomer/ap-airflow:2.2.5`, this line would be:
 
    ```
-   FROM custom-ap-airflow:2.2.5-onbuild
+   FROM custom-ap-airflow:2.2.5
    ```
 
 Your Software project can now utilize Python packages from your private GitHub repository.
