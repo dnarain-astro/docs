@@ -493,20 +493,20 @@ This example assumes that the name of each of your Python packages is identical 
 Your Astro project can now utilize Python packages from your private GitHub repository. To test your DAGs, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).
 
 
-## Install Python Packages from a Private pip Repository
+<<<<TAB 2>>>>  Install Python Packages from a Private PyPI Index
 
-This topic provides instructions for building your Astro project using Python packages from a private pip repository. In some organizations, python packages will be prebuilt and pushed to a hosted private pip server (such as pypiserver, or Nexus Repository) or managed service (such as PackageCloud or Gitlab). Similar to (installing from a private GitHub Repository)[Install Python Packages from a Private GitHub Repository], builds that require packages from a private pip repository must be done using a multi-stage build.
+This topic provides instructions for building your Astro project using Python packages from a private PyPI index. In some organizations, python packages will be prebuilt and pushed to a hosted private pip server (such as pypiserver, or Nexus Repository) or managed service (such as PackageCloud or Gitlab). Similar to [installing from a private GitHub Repository](Install Python Packages from a Private GitHub Repository), builds that require packages from a private PyPI index must be done using a multi-stage build.
 
 ### Prerequisites
 
 To build from a private repository, you need:
 
 - An [Astro project](create-project.md).
-- A private pip repository with username and password authentication.
+- A private PyPI index with username and password authentication.
 
 ### Step 1: Add privately hosted packages to requirements.txt
 
-Privately hosted packages should already be built and pushed to the private repository. Depending on the repository used, it should be possible to browse and find the necessary package and version required. The package name and (optional) version can be added to requirements.txt in the same syntax as for public (PyPI) packages. The requirements.txt can contain both publically accessible and private packages.
+Privately hosted packages should already be built and pushed to the private repository. Depending on the repository used, it should be possible to browse and find the necessary package and version required. The package name and (optional) version can be added to requirements.txt in the same syntax as for publicly listed packages on [PyPI](pypi.org). The requirements.txt can contain a mixture of both publicly accessible and private packages.
 
 
   :::caution
