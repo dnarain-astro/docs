@@ -481,13 +481,13 @@ This example assumes that the name of each of your Python packages is identical 
 2. Replace the contents of your Astro project's `Dockerfile` with the following:
 
    ```
-   FROM custom-<airflow-image>
+   FROM custom-<runtime-image>
    ```
 
-   For example, if your base Runtime image was `quay.io/astronomer/astro-runtime:4.2.0`, this line would be:
+   For example, if your base Runtime image was `quay.io/astronomer/astro-runtime:4.2.10-base`, this line would be:
 
    ```
-   FROM custom-astro-runtime:4.2.0
+   FROM custom-astro-runtime:4.2.10-base
    ```
 
 Your Astro project can now utilize Python packages from your private GitHub repository. To test your DAGs, you can either [run your project locally](develop-project.md#build-and-run-a-project-locally) or [deploy to Astro](deploy-cli.md).

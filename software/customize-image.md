@@ -251,13 +251,7 @@ The following setup has been validated only with a single SSH key. Due to the na
 
 :::
 
-Although this setup is based on GitHub, the general steps can be completed with any hosted Git repository.
-
-:::info
-
-The following setup has been validated only with a single SSH key. Due to the nature of `ssh-agent`, you might need to modify this setup when using more than one SSH key per Docker image.
-
-:::
+### Prerequisites
 
 To install Python packages from a private GitHub repository on Astronomer Software, you need:
 
