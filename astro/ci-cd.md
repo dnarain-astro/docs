@@ -162,6 +162,56 @@ This setup assumes the following prerequisites:
             astrocloud deploy ${{ secrets.PROD_ASTRONOMER_DEPLOYMENT_ID }}
     ```
 
+### GitHub Actions (With Pre-Build Base Image)
+
+This workflow uses the docker/build-push-action@v2 action
+The process for consuming secrets during the build of images with dependancies in private repositories is described here: [Install Python Packages from a Private GitHub Repository](develop-project.md). Special considerations have to be made for setting up GitHub Actions workflow to build and deploy these images. This workflow uses the [docker/build-push-action@v2](https://github.com/docker/build-push-action) action to pre-build the image that is then deployed with `astrocloud`.
+
+1. Set the following as [GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository):
+
+   - `ASTRONOMER_KEY_ID` = `<your-key-id>`
+   - `ASTRONOMER_KEY_SECRET` = `<your-key-secret>`
+   - `ASTRONOMER_DEPLOYMENT_ID` = `<your-astro-deployment-id>`
+   - `GITHUB_SSH_KEY` = `<your-github-ssh-key>`
+
+2. In your project repository, create a new YAML file in `.github/workflows` that includes the following configuration:
+
+    ```yaml
+    name: Astronomer CI - Pre-build base image
+
+    on:
+      push:
+        branches:
+          - main
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        env:
+          ASTRONOMER_KEY_ID: ${{ secrets.ASTRO_ACCESS_KEY_ID_DEV }}
+          ASTRONOMER_KEY_SECRET: ${{ secrets.ASTRO_SECRET_ACCESS_KEY_DEV }}
+        steps:
+        - name: Check out the repo
+          uses: actions/checkout@v2
+        - name: Build Dockerfile.build image
+          uses: docker/build-push-action@v2
+          with:
+            tags: custom-<astro-runtime-image>
+            load: true
+            file: Dockerfile.build
+            secrets: |
+              "github=${{ secrets.GITHUB_SSH_KEY }}"
+        - name: Deploy to Astro
+          run: |
+            brew install astronomer/cloud/astrocloud
+            astrocloud deploy ${{ secrets.ASTRONOMER_DEPLOYMENT_ID }}
+    ```
+
+::: Info
+The image tag for the pre-build, `custom-<astro-runtime-image>`, must exactly match the image tag in the FROM line of Dockerfile.
+:::
+
+
 ### Jenkins
 
 To automate code deploys to a single Deployment using [Jenkins](https://www.jenkins.io/), complete the following setup in a Git-based repository hosting an Astronomer project:
