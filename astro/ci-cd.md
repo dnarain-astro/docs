@@ -207,8 +207,10 @@ The process for consuming secrets during the build of images with dependancies i
             astrocloud deploy ${{ secrets.ASTRONOMER_DEPLOYMENT_ID }}
     ```
 
-::: Info
+:::info
+
 The image tag for the pre-build, `custom-<astro-runtime-image>`, must exactly match the image tag in the FROM line of Dockerfile.
+
 :::
 
 
