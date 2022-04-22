@@ -42,7 +42,9 @@ To get started with SendGrid:
 
 5. Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can't find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
-6. Open the Airflow UI for your Deployment and [create a connection](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html#creating-a-connection-with-the-ui) with the following values:
+6. Open the Variables UI for your Deployment and add a Variable called [AIRFLOW__EMAIL__EMAIL_BACKEND](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html#email-backend) with the value `airflow.providers.sendgrid.utils.emailer.send_email`.
+
+7. Open the Airflow UI for your Deployment and [create a connection](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html#creating-a-connection-with-the-ui) with the following values:
 
     - **Connection ID**: `smtp_default`
     - **Connection Type:**: `Email`
@@ -51,7 +53,7 @@ To get started with SendGrid:
     - **Password**: `<your-api-key>`
     - **Port**: `587`
 
-7. Click **Save** to finalize your configuration.
+8. Click **Save** to finalize your configuration.
 
 To begin receiving emails about Airflow alerts from a given DAG, configure the following values in the DAG's `default_args`:
 
@@ -74,7 +76,9 @@ This setup requires an AWS account and use of the [AWS Management Console](https
 
 4. Choose an Amazon EC2 region to use, then write down the code of this server for the next step. Refer to [Amazon's list of available regions and servers](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions) to determine which server best fits your needs.
 
-5. Open the Airflow UI for your Deployment and [create a connection](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html#creating-a-connection-with-the-ui) with the following values:
+5. Open the Variables UI for your Deployment and add a Variable called [AIRFLOW__EMAIL__EMAIL_BACKEND](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html#email-backend) with the value `airflow.providers.amazon.aws.utils.emailer.send_email`.
+
+6. Open the Airflow UI for your Deployment and [create a connection](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html#creating-a-connection-with-the-ui) with the following values:
 
    - **Connection ID**: `smtp_default`
    - **Connection Type:**: `Email`
@@ -83,7 +87,7 @@ This setup requires an AWS account and use of the [AWS Management Console](https
    - **Password**: `<your-aws-password>`
    - **Port**: `587`
 
-6. Click **Save** to finalize your configuration.
+7. Click **Save** to finalize your configuration.
 
 To begin receiving emails about Airflow alerts from a given DAG, configure the following values in the DAG's `default_args`:
 
