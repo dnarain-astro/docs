@@ -353,7 +353,17 @@ my_project
     └── prod.env
 ```
 
-## Install Python Packages from a Private GitHub Repository
+## Install Python Packages from Private Sources
+
+Python packages can be installed from public and private locations into your image. Packages listed on [PyPI](https://pypi.org/search/) can easily be installed by simply listing them in the
+`requirements.txt`. For packages listed on private PyPI indices, or whos source code is stored in a private git repository, the build process requires some extra steps.
+
+The image usually used to build (quay.io/astronomer/astro-runtime:4.2.10) contains [ONBUILD](https://docs.docker.com/engine/reference/builder/#onbuild) instructions that will automatically
+install the dependancies from `packages.txt` and `requirements.txt`. For packages to be installed from private sources, an *unpacked* version of the image must be used to allow credentials to
+be injected before the ONBUILD instructions are executed.
+
+
+<<<<TAB 1>>>> Install Python Packages from Private GitHub Repositories.
 
 This topic provides instructions for building your Astro project with Python packages from a private GitHub repository.  At a high level, this setup entails specifying your private packages in `requirements.txt`, creating a custom Docker image that mounts a GitHub SSH key for your private GitHub repositories, and building your project with this Docker image.
 
