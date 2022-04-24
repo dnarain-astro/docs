@@ -142,7 +142,7 @@
 /enterprise/overview /software 301
 /enterprise/platform-alerts /software/platform-alerts 301
 /enterprise/pre-create-namespaces /software/namespace-pools 301
-/enterprise/quickstart /software/quickstart 301
+/enterprise/quickstart /software/cli-quickstart 301
 /enterprise/registry-backend /software/registry-backend 301
 /enterprise/release-lifecycle-policy /software/release-lifecycle-policy 301
 /enterprise/release-notes /software/release-notes 301
@@ -155,7 +155,7 @@
 /enterprise/upgrade-ac /software/upgrade-ac 301
 /enterprise/upgrade-astronomer-stable /software/upgrade-astronomer-stable 301
 /enterprise/version-compatibility-reference /software/version-compatibility-reference 301
-/enterprise/workspace-permissions /software/workspace-permissions/ 301
+/enterprise/workspace-permissions /software/workspace-permissions 301
 
 # redirect links out in the wild (beyond our control)
 /v2/* /astro 301
