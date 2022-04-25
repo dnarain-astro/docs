@@ -1,0 +1,5 @@
+# Config file for typos. This is run as a GitHub Action.
+# https://github.com/crate-ci/typos
+
+[files]
+extend-exclude = ["*.css"]
