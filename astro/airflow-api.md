@@ -5,8 +5,6 @@ id: airflow-api
 description: Make requests to the Airflow REST API with Astro Deployment API Keys.
 ---
 
-## Overview
-
 You can use Airflow's [REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html) to automate various Airflow workflows in your Deployments.
 
 If you're looking to externally trigger DAG runs without needing to access your Airflow Deployment directly, for example, you can make an HTTP request (in Python, cURL etc.) to the corresponding endpoint in Airflow's API.
