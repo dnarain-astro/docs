@@ -60,7 +60,7 @@ To update a Workspace user's access to the Workspace:
 
     ![Edit Workspace user button](/img/docs/edit-workspace-user.png)
 
-From here, you can update a user's Workspace role, or remove the user from the Workspace.
+From here, you can either update a user's Workspace role or remove the user from the Workspace.
 
 ## Update a Workspace
 
