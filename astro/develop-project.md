@@ -7,8 +7,6 @@ description: Learn how to add Airflow dependencies and customize an Astro projec
 
 import {siteVariables} from '@site/src/versions';
 
-## Overview
-
 This document explains the various ways you can modify and build your Astro project to fit your team's use case. Specifically, this guide provides instructions on how to:
 
 - Build and run a project
