@@ -5,5 +5,7 @@ jobs:
   typos:
     runs-on: ubuntu-latest
     steps:
-    - name: typos-action
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Check Spelling
       uses: crate-ci/typos@v1.0.4
