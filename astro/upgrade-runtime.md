@@ -5,8 +5,6 @@ id: upgrade-runtime
 description: Upgrade your Deployment's version of Astro Runtime.
 ---
 
-## Overview
-
 New versions of Astro Runtime are released regularly to support new features from both Astro and Apache Airflow. To take advantage of new functionality, as well as bug and security fixes, we recommend regularly upgrading your Deployment's Runtime version.
 
 Follow this guide to upgrade a Deployment's Airflow environment using the Astro CLI. You can use these steps to upgrade to any major, minor, or patch version of Runtime.
