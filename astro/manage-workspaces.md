@@ -43,7 +43,7 @@ The user must be an existing member of the Organization, to add them as a user o
 
 :::
 
-As a Workspace Admin, you can add or remove users from your Workspace. To add a user to a Workspace:
+As a Workspace Admin, you can add or remove users from your Workspace at any time. To add a user to a Workspace:
 
 1. In the Workspace view, go to the **Access** page.
 2. Click **Add member**.
