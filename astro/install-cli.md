@@ -9,8 +9,6 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {siteVariables} from '@site/src/versions';
 
-## Overview
-
 The Astro CLI is the easiest way to run Apache Airflow on your machine.
 
 From the CLI, you can run a local Apache Airflow environment with a dedicated Webserver, Scheduler and Postgres Database. Once you create an Astro project, you can easily customize it (e.g. add Python or OS-level packages, plugins etc.) and test it on your local machine.
