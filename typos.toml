@@ -2,4 +2,4 @@
 # https://github.com/crate-ci/typos
 
 [files]
-extend-exclude = ["*.css"]
+extend-exclude = ["*.css", "yarn.lock"]
